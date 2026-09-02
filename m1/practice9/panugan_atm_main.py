@@ -1,11 +1,11 @@
 import streamlit as st
 
-from balaman_atm_account import Account
-import balaman_atm_balance
-import balaman_atm_deposit
-import balaman_atm_withdraw
-import balaman_atm_history
-import balaman_atm_analysis
+from panugan_atm_account import Account
+import panugan_atm_balance
+import panugan_atm_deposit
+import panugan_atm_withdraw
+import panugan_atm_history
+import panugan_atm_analysis
 
 
 # ==========================================
