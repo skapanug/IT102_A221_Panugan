@@ -69,7 +69,7 @@ if choice == "Check Balance":
     st.header("Check Balance")
 
     balance = (
-        balaman_atm_balance.check_balance(account)
+        panugan_atm_balance.check_balance(account)
     )
 
     st.metric(
@@ -104,7 +104,7 @@ elif choice == "Deposit":
         else:
 
             success = (
-                balaman_atm_deposit.deposit_money(
+                panugan_atm_deposit.deposit_money(
                     account,
                     amount
                 )
@@ -159,7 +159,7 @@ elif choice == "Withdraw":
         else:
 
             success = (
-                balaman_atm_withdraw.withdraw_money(
+                panugan_atm_withdraw.withdraw_money(
                     account,
                     amount
                 )
@@ -186,7 +186,7 @@ elif choice == "View History":
     st.header("Transaction History")
 
     lines = (
-        balaman_atm_history.view_history()
+        panugan_atm_history.view_history()
     )
 
     transactions = []
@@ -267,7 +267,7 @@ elif choice == "Analyze Transactions":
     st.header("Transaction Analysis")
 
     result = (
-        balaman_atm_analysis.analyze_transactions()
+        panugan_atm_analysis.analyze_transactions()
     )
 
 
