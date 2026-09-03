@@ -12,19 +12,14 @@ import panugan_atm_analysis
 # ATM ACCOUNT
 # ==========================================
 
-account = Account(
-    "Juan Dela Cruz",
-    10000.00
-)
+account = Account("Juan Dela Cruz",10000.00)
 
 
 # ==========================================
 # STREAMLIT PAGE CONFIGURATION
 # ==========================================
 
-st.set_page_config(
-    page_title="Python ATM",
-    page_icon="🏦",
+st.set_page_config(page_title="Python ATM",page_icon="🏦",
     layout="wide"
 )
 
@@ -35,9 +30,7 @@ st.set_page_config(
 
 st.title("PYTHON ATM")
 
-st.write(
-    f"Welcome, **{account.account_name}**!"
-)
+st.write( f"Welcome, **{account.account_name}**!")
 
 st.divider()
 
@@ -65,44 +58,21 @@ choice = st.sidebar.radio(
 # ==========================================
 
 if choice == "Check Balance":
-
     st.header("Check Balance")
-
-    balance = (
-        panugan_atm_balance.check_balance(account)
-    )
-
-    st.metric(
-        "Current Balance",
-        f"₱{balance:,.2f}"
-    )
-
+    balance = (panugan_atm_balance.check_balance(account))
+    st.metric( "Current Balance",f"₱{balance:,.2f}")
 
 # ==========================================
 # 2. DEPOSIT
 # ==========================================
 
 elif choice == "Deposit":
-
     st.header("Deposit Money")
-
-    amount = st.number_input(
-        "Enter deposit amount",
-        min_value=0.0,
-        step=100.0,
-        format="%.2f"
-    )
-
+    amount = st.number_input("Enter deposit amount", min_value=0.0,step=100.0,format="%.2f")
     if st.button("Deposit Money"):
-
         if amount <= 0:
-
-            st.error(
-                "Invalid deposit amount."
-            )
-
+            st.error("Invalid deposit amount.")
         else:
-
             success = (
                 panugan_atm_deposit.deposit_money(
                     account,
@@ -360,7 +330,7 @@ elif choice == "Analyze Transactions":
 """ 
 ######### Learning Signature ######### 
 Programmed by: Sean Kyle Anthony L. Panugan
-Date Submitted: August 27, 2026
+Date Submitted: September 3, 2026
  
 Program Description: This program creates the menu for the ATM.
 Reflection: I learned how classes are efficient for assigning
