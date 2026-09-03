@@ -3,7 +3,6 @@ from datetime import datetime
 def withdraw_money(account, amount):
     if amount <= 0:
         return False
-
     success = account.withdraw(amount)
     if success:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -18,7 +17,7 @@ def withdraw_money(account, amount):
 """ 
 ######### Learning Signature ######### 
 Programmed by: Sean Kyle Anthony L. Panugan
-Date Submitted: September 2, 2026
+Date Submitted: September 3, 2026
  
 Program Description: This program creates a separate module for withdrawing.
 Reflection: I learned how to create the withdrawal module for ATM.

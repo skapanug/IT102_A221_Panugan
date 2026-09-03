@@ -1,9 +1,7 @@
 from datetime import datetime
-
 def deposit_money(account, amount):
     if amount <= 0:
         return False
-    
     success = account.deposit(amount)
     if success:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -17,7 +15,7 @@ def deposit_money(account, amount):
 """ 
 ######### Learning Signature ######### 
 Programmed by: Sean Kyle Anthony L. Panugan
-Date Submitted: September 2, 2026
+Date Submitted: September 3, 2026
  
 Program Description: This program creates a separate module for balance.
 Reflection: I learned how are to call a function with recieving an

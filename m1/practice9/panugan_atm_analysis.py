@@ -17,7 +17,6 @@ def analyze_transactions():
         }
     transactions = []
     current = {}
-
     for line in lines:
         line = line.strip()
         if not line:
@@ -37,7 +36,6 @@ def analyze_transactions():
                 .replace(",", "")
                 .strip()
             )
-
             try:
                 current["amount"] = float(amount_text)
             except ValueError:
@@ -48,88 +46,38 @@ def analyze_transactions():
 
             current = {}
 
-
-    # ==========================================
-    # ANALYSIS 1
-    # TRANSACTION SUMMARY
-    # ==========================================
-
     total_transactions = len(transactions)
-
     deposits = 0
     withdrawals = 0
-
-
-    # ==========================================
-    # ANALYSIS 2
-    # TRANSACTION AMOUNT ANALYSIS
-    # ==========================================
 
     total_deposited = 0
     total_withdrawn = 0
     largest_transaction = 0
-
-
-    # ==========================================
-    # ANALYSIS 3
-    # ACCOUNT ACTIVITY ANALYSIS
-    # ==========================================
-
     latest_transaction = "None"
     latest_timestamp = "None"
 
-
     for transaction in transactions:
-
         transaction_type = transaction["type"]
         amount = transaction["amount"]
-
-        # Count deposits
         if transaction_type == "Deposit":
-
             deposits += 1
             total_deposited += amount
-
-        # Count withdrawals
         elif transaction_type == "Withdraw":
-
             withdrawals += 1
             total_withdrawn += amount
-
-
-        # Find largest transaction
+   
         if amount > largest_transaction:
 
             largest_transaction = amount
-
-
-        # Get latest transaction
         latest_transaction = transaction_type
-
-        # Timestamp may not exist in old records
         if "timestamp" in transaction:
-
             latest_timestamp = transaction["timestamp"]
 
-
-    # Calculate average transaction amount
-
     if total_transactions > 0:
-
-        total_amount = (
-            total_deposited +
-            total_withdrawn
-        )
-
-        average_transaction = (
-            total_amount / total_transactions
-        )
-
+        total_amount = (total_deposited +total_withdrawn)
+        average_transaction = (total_amount / total_transactions)
     else:
-
         average_transaction = 0
-
-
     return {
         "total_transactions": total_transactions,
         "deposits": deposits,
@@ -141,3 +89,16 @@ def analyze_transactions():
         "latest_timestamp": latest_timestamp,
         "largest_transaction": largest_transaction
     }
+""" 
+######### Learning Signature ######### 
+Programmed by: Sean Kyle Anthony L. Panugan
+Date Submitted: September 3, 2026
+ 
+Program Description: This program creates a separate module for transaction analysis.
+Reflection: I learned how to create the analysis module for ATM.
+ 
+AI Usage
+[] No AI Assistance – Completed independently without AI.
+[/ ] AI as Support Tool – Used AI for explanations, syntax, or minor corrections.
+[ ] AI as Collaborative Partner – Used AI to design, structure, or co-create significant code.
+"""

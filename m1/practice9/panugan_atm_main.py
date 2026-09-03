@@ -1,43 +1,18 @@
 import streamlit as st
-
 from panugan_atm_account import Account
 import panugan_atm_balance
 import panugan_atm_deposit
 import panugan_atm_withdraw
 import panugan_atm_history
 import panugan_atm_analysis
-
-
-# ==========================================
-# ATM ACCOUNT
-# ==========================================
-
 account = Account("Juan Dela Cruz",10000.00)
 
-
-# ==========================================
-# STREAMLIT PAGE CONFIGURATION
-# ==========================================
-
-st.set_page_config(page_title="Python ATM",page_icon="🏦",
-    layout="wide"
-)
-
-
-# ==========================================
-# ATM HEADER
-# ==========================================
-
+st.set_page_config(page_title="Python ATM",page_icon="🏦",layout="wide")
 st.title("PYTHON ATM")
-
 st.write( f"Welcome, **{account.account_name}**!")
-
 st.divider()
 
 
-# ==========================================
-# SIDEBAR MENU
-# ==========================================
 
 st.sidebar.title("ATM MENU")
 
@@ -51,20 +26,13 @@ choice = st.sidebar.radio(
         "Analyze Transactions"
     ]
 )
+ 
 
-
-# ==========================================
-# 1. CHECK BALANCE
-# ==========================================
 
 if choice == "Check Balance":
     st.header("Check Balance")
     balance = (panugan_atm_balance.check_balance(account))
     st.metric( "Current Balance",f"₱{balance:,.2f}")
-
-# ==========================================
-# 2. DEPOSIT
-# ==========================================
 
 elif choice == "Deposit":
     st.header("Deposit Money")
@@ -73,182 +41,65 @@ elif choice == "Deposit":
         if amount <= 0:
             st.error("Invalid deposit amount.")
         else:
-            success = (
-                panugan_atm_deposit.deposit_money(
-                    account,
-                    amount
-                )
-            )
+            success = (panugan_atm_deposit.deposit_money(account,amount))
 
             if success:
+                st.success("Deposit successful.")
 
-                st.success(
-                    "Deposit successful."
-                )
+                st.metric("New Balance",f"₱{account.check_balance():,.2f}")
 
-                st.metric(
-                    "New Balance",
-                    f"₱{account.check_balance():,.2f}"
-                )
-
-
-# ==========================================
-# 3. WITHDRAW
-# ==========================================
 
 elif choice == "Withdraw":
-
     st.header("Withdraw Money")
+    st.write(f"Available Balance: "f"₱{account.check_balance():,.2f}")
 
-    st.write(
-        f"Available Balance: "
-        f"₱{account.check_balance():,.2f}"
-    )
-
-    amount = st.number_input(
-        "Enter withdrawal amount",
-        min_value=0.0,
-        step=100.0,
-        format="%.2f"
-    )
-
+    amount = st.number_input("Enter withdrawal amount",min_value=0.0,step=100.0,format="%.2f")
     if st.button("Withdraw Money"):
-
         if amount <= 0:
-
-            st.error(
-                "Invalid withdrawal amount."
-            )
-
+            st.error("Invalid withdrawal amount.")
         elif amount > account.check_balance():
-
-            st.error(
-                "Insufficient balance."
-            )
-
+            st.error("Insufficient balance.")
         else:
-
-            success = (
-                panugan_atm_withdraw.withdraw_money(
-                    account,
-                    amount
-                )
-            )
-
+            success = (panugan_atm_withdraw.withdraw_money(account,amount))
             if success:
-
-                st.success(
-                    "Withdrawal successful."
-                )
-
-                st.metric(
-                    "New Balance",
-                    f"₱{account.check_balance():,.2f}"
-                )
-
-
-# ==========================================
-# 4. VIEW TRANSACTION HISTORY
-# ==========================================
+                st.success("Withdrawal successful.")
+                st.metric("New Balance",f"₱{account.check_balance():,.2f}")
 
 elif choice == "View History":
-
     st.header("Transaction History")
-
-    lines = (
-        panugan_atm_history.view_history()
-    )
-
+    lines = (panugan_atm_history.view_history())
     transactions = []
-
     current_transaction = {}
-
     for line in lines:
-
         line = line.strip()
-
         if not line:
             continue
-
         if line.startswith("Timestamp:"):
-
-            current_transaction["Timestamp"] = (
-                line.replace(
-                    "Timestamp:",
-                    ""
-                ).strip()
-            )
+            current_transaction["Timestamp"] = (line.replace("Timestamp:","").strip())
 
         elif line.startswith("Account:"):
 
-            current_transaction["Account"] = (
-                line.replace(
-                    "Account:",
-                    ""
-                ).strip()
-            )
+            current_transaction["Account"] = (line.replace("Account:","").strip())
 
         elif line.startswith("Transaction:"):
-
-            current_transaction["Transaction"] = (
-                line.replace(
-                    "Transaction:",
-                    ""
-                ).strip()
-            )
-
+            current_transaction["Transaction"] = (line.replace("Transaction:","").strip())
         elif line.startswith("Amount:"):
-
-            current_transaction["Amount"] = (
-                line.replace(
-                    "Amount: ₱",
-                    ""
-                ).strip()
-            )
-
-            transactions.append(
-                current_transaction
-            )
-
+            current_transaction["Amount"] = (line.replace("Amount: ₱","").strip())
+            transactions.append(current_transaction)
             current_transaction = {}
 
-
     if transactions:
-
-        st.dataframe(
-            transactions,
-            use_container_width=True,
-            hide_index=True
-        )
+        st.dataframe(transactions,use_container_width=True,hide_index=True)
 
     else:
+        st.info("No transactions available.")
 
-        st.info(
-            "No transactions available."
-        )
-
-
-# ==========================================
-# 5. ANALYZE TRANSACTIONS
-# ==========================================
 
 elif choice == "Analyze Transactions":
-
     st.header("Transaction Analysis")
+    result = (panugan_atm_analysis.analyze_transactions())
 
-    result = (
-        panugan_atm_analysis.analyze_transactions()
-    )
-
-
-    # --------------------------------------
-    # ANALYSIS 1
-    # TRANSACTION SUMMARY
-    # --------------------------------------
-
-    st.subheader(
-        "1. Transaction Summary"
-    )
+    st.subheader("1. Transaction Summary")
 
     col1, col2, col3 = st.columns(3)
 
@@ -266,15 +117,7 @@ elif choice == "Analyze Transactions":
         "Withdrawals",
         result["withdrawals"]
     )
-
-
     st.divider()
-
-
-    # --------------------------------------
-    # ANALYSIS 2
-    # TRANSACTION AMOUNT ANALYSIS
-    # --------------------------------------
 
     st.subheader(
         "2. Transaction Amount Analysis"
@@ -296,15 +139,8 @@ elif choice == "Analyze Transactions":
         "Average Transaction",
         f"₱{result['average_transaction']:,.2f}"
     )
-
-
     st.divider()
 
-
-    # --------------------------------------
-    # ANALYSIS 3
-    # ACCOUNT ACTIVITY ANALYSIS
-    # --------------------------------------
 
     st.subheader(
         "3. Account Activity Analysis"
@@ -333,8 +169,7 @@ Programmed by: Sean Kyle Anthony L. Panugan
 Date Submitted: September 3, 2026
  
 Program Description: This program creates the menu for the ATM.
-Reflection: I learned how classes are efficient for assigning
-attributes for every object.
+Reflection: I learned how to code implementing streamlit into the main module.
  
 AI Usage
 [/ ] No AI Assistance – Completed independently without AI.
