@@ -3,70 +3,34 @@ from panugan_bank_account import (
     StudentAccount
 )
 
-
 USERS_FILE = "users.txt"
 def write_account(file, account):
 
-    file.write(
-        f"Account Number: "
-        f"{account.account_number}\n"
-    )
+    file.write(f"Account Number: "f"{account.account_number}\n")
 
-    file.write(
-        f"Account Name: "
-        f"{account.account_name}\n"
-    )
+    file.write(f"Account Name: "f"{account.account_name}\n")
 
-    file.write(
-        f"PIN: "
-        f"{account.get_pin()}\n"
-    )
+    file.write(f"PIN: "f"{account.get_pin()}\n")
 
-    file.write(
-        f"Account Type: "
-        f"{account.get_account_type()}\n"
-    )
+    file.write(f"Account Type: "f"{account.get_account_type()}\n")
 
-    file.write(
-        f"Balance: "
-        f"{account.check_balance():.2f}\n\n"
-    )
+    file.write(f"Balance: "f"{account.check_balance():.2f}\n\n")
 
 
 def account_exists(account_number):
-
     try:
-
-        with open(
-            USERS_FILE,
-            "r"
-        ) as file:
-
+        with open(USERS_FILE,"r") as file:
             for line in file:
-
                 if line.startswith(
                     "Account Number:"
                 ):
-
-                    saved_number = (
-                        line
-                        .replace(
-                            "Account Number:",
-                            ""
-                        )
-                        .strip()
-                    )
-
+                    saved_number = (line.replace("Account Number:","").strip())
                     if saved_number == account_number:
 
                         return True
-
     except FileNotFoundError:
-
         return False
-
     return False
-
 
 def save_account(account):
 
@@ -237,3 +201,17 @@ def update_account(account):
                 )
 
             write_account(file,saved_account)
+
+""" 
+######### Learning Signature ######### 
+Programmed by: Sean Panugan
+Date Submitted: September 4, 2026
+ 
+Program Description: This program stores the account users listings.
+Reflection: I learned to make sure codes aren't dupilcated if possible,
+ and at best be changed in a reusable format, hence the write account function.
+AI Usage
+[ ] No AI Assistance – Completed independently without AI.
+[/ ] AI as Support Tool – Used AI for explanations, syntax, or minor corrections.
+[ ] AI as Collaborative Partner – Used AI to design, structure, or co-create significant code.
+"""
