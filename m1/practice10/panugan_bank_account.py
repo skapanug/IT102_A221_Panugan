@@ -75,4 +75,17 @@ class StudentAccount(BankAccount):
     def get_account_type(self):
 
         return "Student Account"
-    
+
+""" 
+######### Learning Signature ######### 
+Programmed by: Sean Panugan
+Date Submitted: September 4, 2026
+ 
+Program Description: This program stores the account users listings.
+Reflection: I learned to make sure codes aren't dupilcated if possible,
+ and at best be changed in a reusable format, hence the write account function.
+AI Usage
+[ ] No AI Assistance – Completed independently without AI.
+[/ ] AI as Support Tool – Used AI for explanations, syntax, or minor corrections.
+[ ] AI as Collaborative Partner – Used AI to design, structure, or co-create significant code.
+"""
