@@ -202,7 +202,7 @@ else:
     # ======================================
 
     st.sidebar.title(
-        "balaman BANK"
+        "panugan BANK"
     )
 
     st.sidebar.write(
@@ -484,7 +484,7 @@ else:
                         ),
 
                     "Amount":
-                        balaman_bank_utils
+                        panugan_bank_utils
                         .format_currency(
                             transaction.get(
                                 "amount",

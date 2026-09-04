@@ -5,6 +5,32 @@ from panugan_bank_account import (
 
 
 USERS_FILE = "users.txt"
+def write_account(file, account):
+
+    file.write(
+        f"Account Number: "
+        f"{account.account_number}\n"
+    )
+
+    file.write(
+        f"Account Name: "
+        f"{account.account_name}\n"
+    )
+
+    file.write(
+        f"PIN: "
+        f"{account.get_pin()}\n"
+    )
+
+    file.write(
+        f"Account Type: "
+        f"{account.get_account_type()}\n"
+    )
+
+    file.write(
+        f"Balance: "
+        f"{account.check_balance():.2f}\n\n"
+    )
 
 
 def account_exists(account_number):
@@ -48,31 +74,7 @@ def save_account(account):
         USERS_FILE,
         "a"
     ) as file:
-
-        file.write(
-            f"Account Number: "
-            f"{account.account_number}\n"
-        )
-
-        file.write(
-            f"Account Name: "
-            f"{account.account_name}\n"
-        )
-
-        file.write(
-            f"PIN: "
-            f"{account.get_pin()}\n"
-        )
-
-        file.write(
-            f"Account Type: "
-            f"{account.get_account_type()}\n"
-        )
-
-        file.write(
-            f"Balance: "
-            f"{account.check_balance():.2f}\n\n"
-        )
+       write_account(file,account)
 
 
 def load_accounts():
@@ -234,27 +236,4 @@ def update_account(account):
                     account.check_balance()
                 )
 
-            file.write(
-                f"Account Number: "
-                f"{saved_account.account_number}\n"
-            )
-
-            file.write(
-                f"Account Name: "
-                f"{saved_account.account_name}\n"
-            )
-
-            file.write(
-                f"PIN: "
-                f"{saved_account.get_pin()}\n"
-            )
-
-            file.write(
-                f"Account Type: "
-                f"{saved_account.get_account_type()}\n"
-            )
-
-            file.write(
-                f"Balance: "
-                f"{saved_account.check_balance():.2f}\n\n"
-            )
+            write_account(file,saved_account)

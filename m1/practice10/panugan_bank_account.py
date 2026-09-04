@@ -65,6 +65,7 @@ class SavingsAccount(BankAccount):
     def get_account_type(self):
 
         return "Savings Account"
+    
 
 
 # Inheritance
@@ -74,3 +75,4 @@ class StudentAccount(BankAccount):
     def get_account_type(self):
 
         return "Student Account"
+    
