@@ -283,8 +283,8 @@ else:
             "💸 Withdraw",
             "📄 Transaction History",
             "📊 Transaction Analysis",
-            "Change PIN",
-            "Saving Goals"
+            "🚩 Saving Goals",
+            "❗ Low Balance Alert"
         ]
     )
 
@@ -788,45 +788,9 @@ else:
             f"{result['latest_timestamp']}"
         )
 
-    elif menu == "Change PIN":
 
-        st.header("Change PIN")
 
-        current_pin = st.text_input(
-            "Current PIN",
-            type="password"
-        )
-
-        new_pin = st.text_input(
-            "New PIN",
-            type="password"
-        )
-
-        if st.button("Update PIN"):
-
-            if not account.verify_pin(
-                current_pin
-            ):
-
-                st.error(
-                    "Current PIN is incorrect."
-                )
-
-            else:
-
-                account.change_pin(
-                    new_pin
-                )
-
-                panugan_bank_storage.update_account(
-                    account
-                )
-
-                st.success(
-                    "PIN updated successfully."
-                )
-
-    elif menu == "Saving Goals":
+    elif menu == "🚩 Saving Goals":
 
         st.header(
             "Savings Goal Tracker"
@@ -856,6 +820,33 @@ else:
             f"Goal Amount: "
             f"₱{goal:,.2f}"
         )
+    elif menu == "❗ Low Balance Alert":
+
+        st.header("Low Balance Alert")
+
+        threshold = st.number_input(
+            "Alert Threshold",
+            min_value=0.0,
+            value=500.0
+        )
+
+        balance = account.check_balance()
+
+        st.write(
+            f"Current Balance: ₱{balance:,.2f}"
+        )
+
+        if balance <= threshold:
+
+            st.warning(
+                f"Warning! Your balance is below ₱{threshold:,.2f}."
+            )
+
+        else:
+
+            st.success(
+                "Your balance is above the alert threshold."
+            )
 
 """ 
 ######### Learning Signature ######### 

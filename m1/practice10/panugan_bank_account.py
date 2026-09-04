@@ -51,14 +51,7 @@ class BankAccount(ABC):
     def get_pin(self):
 
         return self._pin
-    def change_pin(self, new_pin):
 
-        self._pin = new_pin
-
-    # Abstraction
-    @abstractmethod
-    def get_account_type(self):
-        pass
 
 
 # Inheritance
