@@ -6,6 +6,15 @@ import panugan_bank_transactions
 import panugan_bank_analysis
 import panugan_bank_utils
 
+st.markdown("""
+<style>
+.stButton button {
+    background-color: #003366;
+    color: white;
+    border-radius: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ==========================================
 # PAGE CONFIGURATION
@@ -16,6 +25,51 @@ st.set_page_config(
     page_icon="🏦",
     layout="wide"
 )
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp {
+    background-color: #0f2e1d;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #143d27;
+}
+
+/* Headers */
+h1, h2, h3 {
+    color: #d4f5dd;
+}
+
+/* Normal text */
+p, label, div {
+    color: #ffffff;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #1f6b3b;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+}
+
+.stButton > button:hover {
+    background-color: #2d8a50;
+}
+
+/* Metric cards */
+[data-testid="stMetric"] {
+    background-color: #1a4d31;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 
 # ==========================================
@@ -36,7 +90,7 @@ if "account" not in st.session_state:
 # BANK HEADER
 # ==========================================
 
-st.title("panugan BANK")
+st.title("Panugan BANK")
 
 st.caption(
     "Secure Digital Banking System"
@@ -224,11 +278,11 @@ else:
     menu = st.sidebar.radio(
         "BANKING MENU",
         [
-            "Dashboard",
-            "Deposit",
-            "Withdraw",
-            "Transaction History",
-            "Transaction Analysis"
+            "🏠 Dashboard",
+            "💰 Deposit",
+            "💸 Withdraw",
+            "📄 Transaction History",
+            "📊 Transaction Analysis"
         ]
     )
 
@@ -284,7 +338,30 @@ else:
             "Account Number",
             account.account_number
         )
+        st.divider()
 
+        col4, col5 = st.columns(2)
+
+        transactions = (
+            panugan_bank_transactions
+            .get_transactions()
+        )
+
+        user_transactions = [
+            t for t in transactions
+            if t.get("account_number")
+            == account.account_number
+        ]
+
+        col4.metric(
+            "Total Transactions",
+            len(user_transactions)
+        )
+
+        col5.metric(
+            "Status",
+            "Active"
+        )
 
         st.divider()
 
@@ -532,7 +609,26 @@ else:
                 account.account_number
             )
         )
+        import pandas as pd
 
+        chart_data = pd.DataFrame(
+            {
+                "Count": [
+                    result["deposits"],
+                    result["withdrawals"]
+                ]
+            },
+            index=[
+                "Deposits",
+                "Withdrawals"
+            ]
+        )
+
+        st.subheader(
+            "Transaction Overview"
+        )
+
+        st.bar_chart(chart_data)
 
         # ==================================
         # ANALYSIS 1
