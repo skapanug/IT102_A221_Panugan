@@ -283,7 +283,7 @@ else:
             "💸 Withdraw",
             "📄 Transaction History",
             "📊 Transaction Analysis",
-            "Change Pin",
+            "Change PIN",
             "Saving Goals"
         ]
     )
@@ -787,6 +787,7 @@ else:
             f"Latest Activity: "
             f"{result['latest_timestamp']}"
         )
+
     elif menu == "Change PIN":
 
         st.header("Change PIN")
@@ -824,7 +825,8 @@ else:
                 st.success(
                     "PIN updated successfully."
                 )
-    elif menu == "Savings Goal":
+
+    elif menu == "Saving Goals":
 
         st.header(
             "Savings Goal Tracker"
