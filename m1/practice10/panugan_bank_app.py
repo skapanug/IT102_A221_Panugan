@@ -306,7 +306,7 @@ else:
     # DASHBOARD
     # ======================================
 
-    if menu == "Dashboard":
+    if menu == "🏠 Dashboard":
 
         st.header(
             f"Welcome, {account.account_name}"
@@ -376,7 +376,7 @@ else:
     # DEPOSIT
     # ======================================
 
-    elif menu == "Deposit":
+    elif menu == "💰 Deposit":
 
         st.header(
             "Deposit Money"
@@ -443,7 +443,7 @@ else:
     # WITHDRAW
     # ======================================
 
-    elif menu == "Withdraw":
+    elif menu == "💸 Withdraw":
 
         st.header(
             "Withdraw Money"
@@ -516,7 +516,7 @@ else:
     # TRANSACTION HISTORY
     # ======================================
 
-    elif menu == "Transaction History":
+    elif menu == "📄 Transaction History":
 
         st.header(
             "Transaction History"
@@ -597,7 +597,7 @@ else:
     # TRANSACTION ANALYSIS
     # ======================================
 
-    elif menu == "Transaction Analysis":
+    elif menu == "📊 Transaction Analysis":
 
         st.header(
             "Transaction Analysis"
