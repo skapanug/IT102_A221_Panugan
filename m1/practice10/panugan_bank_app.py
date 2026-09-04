@@ -282,7 +282,9 @@ else:
             "💰 Deposit",
             "💸 Withdraw",
             "📄 Transaction History",
-            "📊 Transaction Analysis"
+            "📊 Transaction Analysis",
+            "Change Pin",
+            "Saving Goals"
         ]
     )
 
@@ -428,6 +430,28 @@ else:
 
                     st.success(
                         "Deposit successful."
+                    )
+                    st.subheader(
+                        "E-Receipt"
+                    )
+
+                    st.write(
+                        f"Account: "
+                        f"{account.account_number}"
+                    )
+
+                    st.write(
+                        f"Transaction: Deposit"
+                    )
+
+                    st.write(
+                        f"Amount: "
+                        f"₱{amount:,.2f}"
+                    )
+
+                    st.write(
+                        f"Balance: "
+                        f"₱{account.check_balance():,.2f}"
                     )
 
                     st.metric(
@@ -762,6 +786,73 @@ else:
         st.caption(
             f"Latest Activity: "
             f"{result['latest_timestamp']}"
+        )
+    elif menu == "Change PIN":
+
+        st.header("Change PIN")
+
+        current_pin = st.text_input(
+            "Current PIN",
+            type="password"
+        )
+
+        new_pin = st.text_input(
+            "New PIN",
+            type="password"
+        )
+
+        if st.button("Update PIN"):
+
+            if not account.verify_pin(
+                current_pin
+            ):
+
+                st.error(
+                    "Current PIN is incorrect."
+                )
+
+            else:
+
+                account.change_pin(
+                    new_pin
+                )
+
+                panugan_bank_storage.update_account(
+                    account
+                )
+
+                st.success(
+                    "PIN updated successfully."
+                )
+    elif menu == "Savings Goal":
+
+        st.header(
+            "Savings Goal Tracker"
+        )
+
+        goal = st.number_input(
+            "Goal Amount",
+            min_value=0.0
+        )
+
+        progress = (
+            account.check_balance()
+            /
+            goal
+        ) if goal > 0 else 0
+
+        st.progress(
+            min(progress, 1.0)
+        )
+
+        st.write(
+            f"Current Balance: "
+            f"₱{account.check_balance():,.2f}"
+        )
+
+        st.write(
+            f"Goal Amount: "
+            f"₱{goal:,.2f}"
         )
 
 """ 
