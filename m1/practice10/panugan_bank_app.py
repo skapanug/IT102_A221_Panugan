@@ -169,7 +169,7 @@ if not st.session_state.logged_in:
     with register_tab:
 
         st.subheader(
-            "Create Your balaman Bank Account"
+            "Create Your Panugan Bank Account"
         )
 
         name = st.text_input(
@@ -256,7 +256,7 @@ else:
     # ======================================
 
     st.sidebar.title(
-        "panugan BANK"
+        "Services"
     )
 
     st.sidebar.write(
