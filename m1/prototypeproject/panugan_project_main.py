@@ -2,30 +2,28 @@ from panugan_project_product import Product
 
 wrench = Product("Wrench")
 
+# Load records from file
+wrench.loadSalesRecords()
 
-wrench.addSale("2026-09-01", 1000)
+print("Features:")
+print("1 - Sales Records")
+print("2 - Sales Performance")
 
-wrench.addSale("2026-09-02", 1500)
-
-wrench.addSale("2026-09-03", 1200)
-
-print("Features: Product(Wrench Example) Sales Records - 1, Sales Performance - 2")
 button = int(input())
 
 if button == 1:
-        print("Product:", wrench.getProductName())
 
-        print("Sales Records:", wrench.getSalesRecords())
+    print("Product:", wrench.getProductName())
+    print("Sales Records:", wrench.getSalesRecords())
 
-        print("Add Sales - 1")
+    print("Add Sale - 1")
+    add = int(input())
 
-        add = int(input())
-        if add == 1:
-                date = input()
-                sold = int(input())
-                wrench.addSale(date+", ", sold)
-                print("New Sales Records:", wrench.getSalesRecords())
-        else:
-            print()
-else: 
-        print()
+    if add == 1:
+        date = input("Date: ")
+        sold = int(input("Amount Sold: "))
+
+        wrench.addSale(date, sold)
+
+        print("New Sales Records:")
+        print(wrench.getSalesRecords())
