@@ -1,13 +1,26 @@
 class Product:
 
-    def __init__(self, productName):
+    def __init__(self, productName, fileManager):
+
         self.__productName = productName
         self.__salesRecords = {}
+        self.__fileManager = fileManager
+
+    def loadSalesRecords(self):
+
+        self.__salesRecords = self.__fileManager.loadRecords(
+            self.__productName
+        )
 
     def addSale(self, date, amount):
+
         self.__salesRecords[date] = amount
-        with open("sales_records.txt", "a") as file:
-            file.write(f"{self.__productName},{date},{amount}\n")
+
+        self.__fileManager.saveSale(
+            self.__productName,
+            date,
+            amount
+        )
 
     def getSalesRecords(self):
         return self.__salesRecords
@@ -15,14 +28,8 @@ class Product:
     def getProductName(self):
         return self.__productName
 
-    def loadSalesRecords(self):
-        try:
-            with open("sales_records.txt", "r") as file:
-                for line in file:
-                    product, date, amount = line.strip().split(",")
 
-                    if product == self.__productName:
-                        self.__salesRecords[date] = int(amount)
+class Tool(Product):
 
-        except FileNotFoundError:
-            pass
+    def getCategory(self):
+        return "Tool"
