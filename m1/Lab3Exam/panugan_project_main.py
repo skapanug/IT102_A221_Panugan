@@ -50,7 +50,7 @@ if button == "Sales Records":
     else:
         st.warning("sales_records.txt does not exist.")
 
-    option = st.radio("Select Action",["Add Sale", "Update Sale", "Delete Sale", "Back"],key="sales_action")
+    option = st.radio("Select Action",["Add Sale", "Update Sale", "Delete Sale"],key="sales_action")
 
     if option == "Add Sale":
         st.subheader("Add Sale")
