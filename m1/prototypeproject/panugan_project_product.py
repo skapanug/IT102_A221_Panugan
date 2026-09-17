@@ -6,6 +6,9 @@ class Product:
 
     def addSale(self, date, amount):
         self.__salesRecords[date] = amount
+
+        # Save to text file
+
         with open("sales_records.txt", "a") as file:
             file.write(f"{self.__productName},{date},{amount}\n")
 
