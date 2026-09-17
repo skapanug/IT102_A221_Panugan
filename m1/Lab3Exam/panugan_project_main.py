@@ -1,12 +1,15 @@
 import streamlit as st
+import pandas as pd
+import os
 
 from panugan_project_product import Tool
-from panugan_project_data import FileManager
+from panugan_project_filemanager import FileManager
 
-
+# Objects
 fileManager = FileManager()
 wrench = Tool("Wrench", fileManager)
 
+# Theme
 st.markdown("""
 <style>
 .stApp {
@@ -17,99 +20,118 @@ st.markdown("""
 section[data-testid="stSidebar"] {
     background-color: #2b1111;
 }
+
 h1, h2, h3 {
-    color: #ff4d4d;
+    color: #ff8c00;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# Title
 st.title("She Sells - See Sales")
 
-
+# Navigation
 button = st.sidebar.radio(
     "Navigation",
-    [
-        "Sales Records",
-        "Sales Performance",
-        "Exit"
-    ]
+    ["Sales Records", "Sales Performance", "Exit"],
+    key="nav"
 )
 
-
+# SALES RECORDS
 if button == "Sales Records":
-   if button == "Sales Records":
+
+    st.header("Sales Records")
+
     st.subheader("Current Sales Records")
-    import pandas as pd
-    import os
 
     FILE_PATH = os.path.join(
         os.path.dirname(__file__),
         "sales_records.txt"
     )
+
     if os.path.exists(FILE_PATH):
+
         data = pd.read_csv(
             FILE_PATH,
             names=["Product", "Date", "Amount"]
         )
+
         st.dataframe(data)
+
     else:
+
         st.warning("sales_records.txt does not exist.")
-        
-    st.header("Sales Records")
-    wrench.loadSalesRecords()
+
     option = st.radio(
         "Select Action",
-        ["Add Sale", "Update Sale", "Delete Sale", "Back"]
+        ["Add Sale", "Update Sale", "Delete Sale", "Back"],
+        key="sales_action"
     )
 
-    st.header("Sales Records")
-    wrench.loadSalesRecords()
-    option = st.radio(
-        "Select Action",
-        ["Add Sale","Update Sale","Delete Sale","Back"]
-    )
-
- 
     if option == "Add Sale":
+
         st.subheader("Add Sale")
-        date = st.text_input("Date")
+
+        date = st.text_input("Date", key="add_date")
         amount = st.number_input(
             "Amount Sold",
-            min_value=0
+            min_value=0,
+            key="add_amount"
         )
 
-        if st.button("Submit Add"):
+        if st.button("Add", key="add_btn"):
             wrench.addSale()
             st.success("Sale Added")
 
-
     elif option == "Update Sale":
-        st.subheader("Update Sale")
-        date = st.text_input("Date")
-        amount = st.number_input("New Amount",min_value=0)
 
-        if st.button("Submit Update"):
+        st.subheader("Update Sale")
+
+        date = st.text_input("Date", key="update_date")
+        amount = st.number_input(
+            "New Amount",
+            min_value=0,
+            key="update_amount"
+        )
+
+        if st.button("Update", key="update_btn"):
             wrench.updateSale()
             st.success("Sale Updated")
 
-    
     elif option == "Delete Sale":
+
         st.subheader("Delete Sale")
-        date = st.text_input("Date")
-        if st.button("Submit Delete"):
+
+        date = st.text_input("Date", key="delete_date")
+
+        if st.button("Delete", key="delete_btn"):
             wrench.deleteSale()
             st.success("Sale Deleted")
 
-
+# SALES PERFORMANCE
 elif button == "Sales Performance":
+
     st.header("Sales Performance")
-    startDate = st.date_input("Start Date")
-    endDate = st.date_input("End Date")
 
-    if st.button("Generate Graph"):
-        st.write(f"Performance from {startDate} to {endDate}")
-        st.info("Graph Placeholder")
+    startDate = st.date_input(
+        "Start Date",
+        key="start_date"
+    )
 
+    endDate = st.date_input(
+        "End Date",
+        key="end_date"
+    )
 
+    if st.button("Generate Graph", key="graph_btn"):
+
+        st.info(
+            f"Showing performance from {startDate} to {endDate}"
+        )
+
+        st.write("[Graph Placeholder]")
+
+# EXIT
 elif button == "Exit":
-    st.write("Exiting Goodbye!")
+
+    st.success("Thank you for using She Sells - See Sales")
