@@ -25,9 +25,9 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Sales Performance Tracker")
+st.title("She Sells - See Sales")
 
-# Equivalent of button = int(input())
+
 button = st.sidebar.radio(
     "Navigation",
     [
@@ -37,7 +37,7 @@ button = st.sidebar.radio(
     ]
 )
 
-# button == 1
+
 if button == "Sales Records":
 
     st.header("Sales Records")
@@ -46,21 +46,13 @@ if button == "Sales Records":
 
     option = st.radio(
         "Select Action",
-        [
-            "Add Sale",
-            "Update Sale",
-            "Delete Sale",
-            "Back"
-        ]
+        ["Add Sale","Update Sale","Delete Sale","Back"]
     )
 
-    # option == 1
+ 
     if option == "Add Sale":
-
         st.subheader("Add Sale")
-
         date = st.text_input("Date")
-
         amount = st.number_input(
             "Amount Sold",
             min_value=0
@@ -70,50 +62,34 @@ if button == "Sales Records":
             wrench.addSale()
             st.success("Sale Added")
 
-    # option == 2
+
     elif option == "Update Sale":
-
         st.subheader("Update Sale")
-
         date = st.text_input("Date")
-
-        amount = st.number_input(
-            "New Amount",
-            min_value=0
-        )
+        amount = st.number_input("New Amount",min_value=0)
 
         if st.button("Submit Update"):
             wrench.updateSale()
             st.success("Sale Updated")
 
-    # option == 3
+    
     elif option == "Delete Sale":
-
         st.subheader("Delete Sale")
-
         date = st.text_input("Date")
-
         if st.button("Submit Delete"):
             wrench.deleteSale()
             st.success("Sale Deleted")
 
-# button == 2
+
 elif button == "Sales Performance":
-
     st.header("Sales Performance")
-
     startDate = st.date_input("Start Date")
     endDate = st.date_input("End Date")
 
     if st.button("Generate Graph"):
-
-        st.write(
-            f"Performance from {startDate} to {endDate}"
-        )
-
+        st.write(f"Performance from {startDate} to {endDate}")
         st.info("Graph Placeholder")
 
-# button == 3
-elif button == "Exit":
 
-    st.write("Thank you for using the application.")
+elif button == "Exit":
+    st.write("Exiting Goodbye!")
