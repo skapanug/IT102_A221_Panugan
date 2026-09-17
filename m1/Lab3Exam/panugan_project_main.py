@@ -37,20 +37,31 @@ button = st.sidebar.radio(
 
 
 if button == "Sales Records":
+   if button == "Sales Records":
     st.subheader("Current Sales Records")
     import pandas as pd
-    try:
+    import os
 
+    FILE_PATH = os.path.join(
+        os.path.dirname(__file__),
+        "sales_records.txt"
+    )
+    if os.path.exists(FILE_PATH):
         data = pd.read_csv(
-            "sales_records.txt",
+            FILE_PATH,
             names=["Product", "Date", "Amount"]
         )
-
         st.dataframe(data)
-
-    except FileNotFoundError:
+    else:
         st.warning("sales_records.txt does not exist.")
         
+    st.header("Sales Records")
+    wrench.loadSalesRecords()
+    option = st.radio(
+        "Select Action",
+        ["Add Sale", "Update Sale", "Delete Sale", "Back"]
+    )
+
     st.header("Sales Records")
     wrench.loadSalesRecords()
     option = st.radio(
