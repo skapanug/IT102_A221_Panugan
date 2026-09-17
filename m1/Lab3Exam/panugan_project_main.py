@@ -2,12 +2,17 @@ import streamlit as st
 
 from panugan_project_product import Tool
 from panugan_project_data import FileManager
+import os
 
-# Objects
+BASE_DIR = os.path.dirname(__file__)
+FILE_PATH = os.path.join(BASE_DIR, "sales_records.txt")
+
+with open(FILE_PATH, "r") as file:
+    st.text(file.read())
+
 fileManager = FileManager()
 wrench = Tool("Wrench", fileManager)
 
-# Theme
 st.markdown("""
 <style>
 .stApp {
