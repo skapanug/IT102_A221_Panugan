@@ -18,7 +18,6 @@ st.markdown("""
 section[data-testid="stSidebar"] {
     background-color: #2b1111;
 }
-
 h1, h2, h3 {
     color: #ff4d4d;
 }
@@ -39,11 +38,17 @@ button = st.sidebar.radio(
 
 
 if button == "Sales Records":
+    st.subheader("Current Sales Records")
+
+    try:
+        with open("sales_records.txt", "r") as file:
+            st.text(file.read())
+
+    except FileNotFoundError:
+        st.warning("sales_records.txt does not exist.")
 
     st.header("Sales Records")
-
     wrench.loadSalesRecords()
-
     option = st.radio(
         "Select Action",
         ["Add Sale","Update Sale","Delete Sale","Back"]
