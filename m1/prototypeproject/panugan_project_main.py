@@ -1,8 +1,6 @@
 from panugan_project_product import Product
 
 wrench = Product("Wrench")
-
-# Load records from file
 wrench.loadSalesRecords()
 
 print("Features:")
@@ -16,14 +14,24 @@ if button == 1:
     print("Product:", wrench.getProductName())
     print("Sales Records:", wrench.getSalesRecords())
 
-    print("Add Sale - 1")
+    print("1 - Add Sale")
+    print("2 - Sales Logs")
     add = int(input())
 
     if add == 1:
         date = input("Date: ")
-        sold = int(input("Amount Sold: "))
+        sold = int(input("Amount Spold: "))
 
         wrench.addSale(date, sold)
 
         print("New Sales Records:")
         print(wrench.getSalesRecords())
+
+elif button == 2:
+    startDate = input("Start Date: ")
+    endDate = input("End Date: ")
+    print("Performance")
+
+
+elif button == 3:
+    print("Exiting Application")
