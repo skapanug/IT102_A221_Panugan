@@ -37,3 +37,4 @@ class Tool(Product):
 
     def getCategory(self):
         return "Tool"
+    
