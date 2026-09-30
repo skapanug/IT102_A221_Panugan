@@ -61,56 +61,33 @@ if button == "Sales Records":
 
     if option == "Add Sale":
         st.subheader("Add Sale")
-        date = st.text_input("Date", key="add_date")
-        amount = st.number_input(
-            "Amount Sold",
-            min_value=0,
-            key="add_amount"
-        )
+        date = st.date_input("Date")
+        amount = st.number_input("Amount Sold",min_value=0)
 
-        if st.button("Add", key="add_btn"):
-            wrench.addSale(date, amount)
-            st.success("Sale Added")
-
-
-
-
+        if st.button("Add"):
+            wrench.addSale(date.strftime("%Y-%m-%d"),amount)
 
 
 
 
     elif option == "Update Sale":
         st.subheader("Update Sale")
-        date = st.text_input("Date", key="update_date")
-        amount = st.number_input(
-            "New Amount",
-            min_value=0,
-            key="update_amount"
-        )
+        date = st.date_input("Date")
+        amount = st.number_input("New Amount",min_value=0)
 
-        if st.button("Update", key="update_btn"):
-            wrench.updateSale(date, amount)
-            st.success("Sale Updated")
-
-
-
-
-
-
-
-
-
+        if st.button("Update"):
+            wrench.updateSale(date.strftime("%Y-%m-%d"),amount)
 
 
 
 
     elif option == "Delete Sale":
         st.subheader("Delete Sale")
-        date = st.text_input("Date", key="delete_date")
+        date = st.date_input("Date")
 
-        if st.button("Delete", key="delete_btn"):
-            wrench.deleteSale(date)
-            st.success("Sale Deleted")
+        if st.button("Delete"):
+            wrench.deleteSale(date.strftime("%Y-%m-%d"))
+
 
 
 
