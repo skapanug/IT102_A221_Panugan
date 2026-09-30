@@ -224,26 +224,89 @@ elif button == "Sales Performance":
 
     st.header("Sales Performance")
 
-    startDate = st.date_input(
-        "Start Date",
-        key="start_date"
+    FILE_PATH = os.path.join(
+        os.path.dirname(__file__),
+        "sales_records.txt"
     )
 
-    endDate = st.date_input(
-        "End Date",
-        key="end_date"
-    )
+    if os.path.exists(FILE_PATH):
 
-    if st.button(
-        "Generate Graph",
-        key="graph_btn"
-    ):
-
-        st.info(
-            f"Showing performance from {startDate} to {endDate}"
+        data = pd.read_csv(
+            FILE_PATH,
+            names=["Product", "Date", "Amount"]
         )
 
-        st.write("Imagine a graph here.")
+        products = sorted(
+            data["Product"].unique().tolist()
+        )
+
+        selectedProduct = st.selectbox(
+            "Select Product",
+            products,
+            key="graph_product"
+        )
+
+        startDate = st.date_input(
+            "Start Date",
+            key="start_date"
+        )
+
+        endDate = st.date_input(
+            "End Date",
+            key="end_date"
+        )
+
+        if st.button(
+            "Generate Graph",
+            key="graph_btn"
+        ):
+
+            filteredData = data[
+                (data["Product"] == selectedProduct)
+            ].copy()
+
+            filteredData["Date"] = pd.to_datetime(
+                filteredData["Date"]
+            )
+
+            filteredData = filteredData[
+                (filteredData["Date"] >= pd.to_datetime(startDate))
+                &
+                (filteredData["Date"] <= pd.to_datetime(endDate))
+            ]
+
+            filteredData = filteredData.sort_values(
+                by="Date"
+            )
+
+            if not filteredData.empty:
+
+                st.subheader(
+                    f"{selectedProduct} Sales Trend"
+                )
+
+                graphData = filteredData.set_index(
+                    "Date"
+                )["Amount"]
+
+                st.line_chart(graphData)
+
+                st.dataframe(
+                    filteredData,
+                    use_container_width=True
+                )
+
+            else:
+
+                st.warning(
+                    "No records found for the selected range."
+                )
+
+    else:
+
+        st.warning(
+            "sales_records.txt does not exist."
+        )
 
 elif button == "Exit":
 
