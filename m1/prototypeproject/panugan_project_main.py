@@ -145,6 +145,8 @@ if button == "Sales Records":
                     amount
                 )
 
+                st.write(FILE_PATH)
+
                 st.session_state["message"] = (
                     f"{productName} sale added."
                 )
