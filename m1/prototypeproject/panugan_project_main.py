@@ -52,6 +52,13 @@ if button == "Sales Records":
 
     option = st.radio("Select Action",["Add Sale", "Update Sale", "Delete Sale"],key="sales_action")
 
+
+
+
+
+
+
+
     if option == "Add Sale":
         st.subheader("Add Sale")
         date = st.text_input("Date", key="add_date")
@@ -62,8 +69,15 @@ if button == "Sales Records":
         )
 
         if st.button("Add", key="add_btn"):
-            wrench.addSale()
+            wrench.addSale(date, amount)
             st.success("Sale Added")
+
+
+
+
+
+
+
 
     elif option == "Update Sale":
         st.subheader("Update Sale")
@@ -75,16 +89,34 @@ if button == "Sales Records":
         )
 
         if st.button("Update", key="update_btn"):
-            wrench.updateSale()
+            wrench.updateSale(date, amount)
             st.success("Sale Updated")
+
+
+
+
+
+
+
+
+
+
+
+
 
     elif option == "Delete Sale":
         st.subheader("Delete Sale")
         date = st.text_input("Date", key="delete_date")
 
         if st.button("Delete", key="delete_btn"):
-            wrench.deleteSale()
+            wrench.deleteSale(date)
             st.success("Sale Deleted")
+
+
+
+
+
+
 
 
 elif button == "Sales Performance":
