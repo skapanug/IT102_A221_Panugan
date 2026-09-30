@@ -64,23 +64,12 @@ if button == "Sales Records":
     if productChoice == "➕ Create New Product":
 
         productName = st.text_input(
-            "Enter Product Name",
-            key="new_product"
+            "Enter Product Name"
         ).strip()
-
-        if productName:
-
-            st.session_state["selected_product"] = productName
 
     else:
 
         productName = productChoice
-
-        st.session_state["selected_product"] = productName
-        productName = st.session_state.get(
-            "selected_product",
-            productName
-        )
 
     if productName:
 
