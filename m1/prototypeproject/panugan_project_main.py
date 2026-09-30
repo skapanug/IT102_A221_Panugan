@@ -1,5 +1,4 @@
 import streamlit as st
-import plotly.express as px
 import pandas as pd
 import os
 
@@ -247,27 +246,12 @@ elif button == "Sales Performance":
                     .dt.strftime("%b %d")
                 )
 
-                
-
-                fig = px.line(
-                    filteredData,
-                    x="DisplayDate",
-                    y="Amount",
-                    markers=True,
-                    title=f"{selectedProduct} Sales Trend"
+                chartData = chartData.set_index(
+                    "DisplayDate"
                 )
 
-                fig.update_layout(
-                    paper_bgcolor="#1a0d0d",
-                    plot_bgcolor="#1a0d0d",
-                    font_color="white",
-                    xaxis_title="Date",
-                    yaxis_title="Amount Sold"
-                )
-
-                st.plotly_chart(
-                    fig,
-                    use_container_width=True
+                st.line_chart(
+                    chartData["Amount"]
                 )
 
                 st.dataframe(
