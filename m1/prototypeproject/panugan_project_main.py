@@ -172,7 +172,7 @@ if button == "Sales Records":
 
 
 
-                
+
 
 elif button == "Sales Performance":
 
@@ -216,7 +216,7 @@ elif button == "Sales Performance":
         ):
 
             filteredData = data[
-                (data["Product"] == selectedProduct)
+                data["Product"] == selectedProduct
             ].copy()
 
             filteredData["Date"] = pd.to_datetime(
@@ -239,11 +239,20 @@ elif button == "Sales Performance":
                     f"{selectedProduct} Sales Trend"
                 )
 
-                graphData = filteredData.set_index(
-                    "Date"
-                )["Amount"]
+                chartData = filteredData.copy()
 
-                st.line_chart(graphData)
+                chartData["DisplayDate"] = (
+                    chartData["Date"]
+                    .dt.strftime("%b %d")
+                )
+
+                chartData = chartData.set_index(
+                    "DisplayDate"
+                )
+
+                st.line_chart(
+                    chartData["Amount"]
+                )
 
                 st.dataframe(
                     filteredData,
