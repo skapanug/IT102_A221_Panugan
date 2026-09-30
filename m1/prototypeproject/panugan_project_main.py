@@ -48,23 +48,21 @@ if button == "Sales Records":
             names=["Product", "Date", "Amount"]
         )
 
-        st.subheader("Current Sales Records")
-        st.dataframe(data)
-
-        existingProducts = sorted(
+        productList = sorted(
             data["Product"].unique().tolist()
         )
 
     else:
 
-        st.subheader("Current Sales Records")
-        st.info("No sales records found.")
+        data = pd.DataFrame(
+            columns=["Product", "Date", "Amount"]
+        )
 
-        existingProducts = []
+        productList = []
 
     productChoice = st.selectbox(
         "Select Product",
-        existingProducts + ["Create New Product"]
+        productList + ["Create New Product"]
     )
 
     if productChoice == "Create New Product":
@@ -84,6 +82,25 @@ if button == "Sales Records":
             fileManager
         )
 
+        st.subheader(f"{productName} Records")
+
+        filteredData = data[
+            data["Product"] == productName
+        ]
+
+        if not filteredData.empty:
+
+            st.dataframe(
+                filteredData,
+                use_container_width=True
+            )
+
+        else:
+
+            st.info(
+                "No records found for this product."
+            )
+
         option = st.radio(
             "Select Action",
             [
@@ -94,6 +111,7 @@ if button == "Sales Records":
             key="sales_action"
         )
 
+        # ADD SALE
         if option == "Add Sale":
 
             st.subheader("Add Sale")
@@ -117,78 +135,73 @@ if button == "Sales Records":
                 )
 
                 st.success("Sale Added")
+
                 st.rerun()
 
+        # UPDATE SALE
         elif option == "Update Sale":
 
             st.subheader("Update Sale")
 
-            if os.path.exists(FILE_PATH):
+            if not filteredData.empty:
 
-                productData = data[
-                    data["Product"] == productName
-                ]
+                selectedDate = st.selectbox(
+                    "Select Record",
+                    filteredData["Date"].tolist(),
+                    key="update_record"
+                )
 
-                if not productData.empty:
+                newAmount = st.number_input(
+                    "New Amount",
+                    min_value=0,
+                    key="update_amount"
+                )
 
-                    selectedDate = st.selectbox(
-                        "Select Record",
-                        productData["Date"].tolist()
+                if st.button("Update"):
+
+                    product.updateSale(
+                        selectedDate,
+                        newAmount
                     )
 
-                    newAmount = st.number_input(
-                        "New Amount",
-                        min_value=0,
-                        key="update_amount"
-                    )
+                    st.success("Sale Updated")
 
-                    if st.button("Update"):
+                    st.rerun()
 
-                        product.updateSale(
-                            selectedDate,
-                            newAmount
-                        )
+            else:
 
-                        st.success("Sale Updated")
-                        st.rerun()
+                st.warning(
+                    "No records available to update."
+                )
 
-                else:
-
-                    st.warning(
-                        "No records found for this product."
-                    )
-
+        # DELETE SALE
         elif option == "Delete Sale":
 
             st.subheader("Delete Sale")
 
-            if os.path.exists(FILE_PATH):
+            if not filteredData.empty:
 
-                productData = data[
-                    data["Product"] == productName
-                ]
+                selectedDate = st.selectbox(
+                    "Select Record To Delete",
+                    filteredData["Date"].tolist(),
+                    key="delete_record"
+                )
 
-                if not productData.empty:
+                if st.button("Delete"):
 
-                    selectedDate = st.selectbox(
-                        "Select Record To Delete",
-                        productData["Date"].tolist()
+                    product.deleteSale(
+                        selectedDate
                     )
 
-                    if st.button("Delete"):
+                    st.success("Sale Deleted")
 
-                        product.deleteSale(
-                            selectedDate
-                        )
+                    st.rerun()
 
-                        st.success("Sale Deleted")
-                        st.rerun()
+            else:
 
-                else:
-
-                    st.warning(
-                        "No records found for this product."
-                    )
+                st.warning(
+                    "No records available to delete."
+                )
 
 elif button == "Sales Performance":
 
