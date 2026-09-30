@@ -246,12 +246,27 @@ elif button == "Sales Performance":
                     .dt.strftime("%b %d")
                 )
 
-                chartData = chartData.set_index(
-                    "DisplayDate"
+                import plotly.express as px
+
+                fig = px.line(
+                    filteredData,
+                    x="DisplayDate",
+                    y="Amount",
+                    markers=True,
+                    title=f"{selectedProduct} Sales Trend"
                 )
 
-                st.line_chart(
-                    chartData["Amount"]
+                fig.update_layout(
+                    paper_bgcolor="#1a0d0d",
+                    plot_bgcolor="#1a0d0d",
+                    font_color="white",
+                    xaxis_title="Date",
+                    yaxis_title="Amount Sold"
+                )
+
+                st.plotly_chart(
+                    fig,
+                    use_container_width=True
                 )
 
                 st.dataframe(
