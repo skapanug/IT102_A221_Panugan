@@ -220,125 +220,33 @@ if button == "Sales Records":
                     "No records available."
                 )
 
-        # ADD SALE
-        if option == "Add Sale":
+    elif button == "Sales Performance":
 
-            st.subheader("Add Sale")
+        st.header("Sales Performance")
 
-            date = st.date_input(
-                "Date",
-                key="add_date"
-            )
-
-            amount = st.number_input(
-                "Amount Sold",
-                min_value=0,
-                key="add_amount"
-            )
-
-            if st.button("Add"):
-
-                product.addSale(
-                    date.strftime("%Y-%m-%d"),
-                    amount
-                )
-
-                st.success("Sale Added")
-
-                st.rerun()
-
-        # UPDATE SALE
-        elif option == "Update Sale":
-
-            st.subheader("Update Sale")
-
-            if not filteredData.empty:
-
-                selectedDate = st.selectbox(
-                    "Select Record",
-                    filteredData["Date"].tolist(),
-                    key="update_record"
-                )
-
-                newAmount = st.number_input(
-                    "New Amount",
-                    min_value=0,
-                    key="update_amount"
-                )
-
-                if st.button("Update"):
-
-                    product.updateSale(
-                        selectedDate,
-                        newAmount
-                    )
-
-                    st.success("Sale Updated")
-
-                    st.rerun()
-
-            else:
-
-                st.warning(
-                    "No records available to update."
-                )
-
-        # DELETE SALE
-        elif option == "Delete Sale":
-
-            st.subheader("Delete Sale")
-
-            if not filteredData.empty:
-
-                selectedDate = st.selectbox(
-                    "Select Record To Delete",
-                    filteredData["Date"].tolist(),
-                    key="delete_record"
-                )
-
-                if st.button("Delete"):
-
-                    product.deleteSale(
-                        selectedDate
-                    )
-
-                    st.success("Sale Deleted")
-
-                    st.rerun()
-
-            else:
-
-                st.warning(
-                    "No records available to delete."
-                )
-
-elif button == "Sales Performance":
-
-    st.header("Sales Performance")
-
-    startDate = st.date_input(
-        "Start Date",
-        key="start_date"
-    )
-
-    endDate = st.date_input(
-        "End Date",
-        key="end_date"
-    )
-
-    if st.button(
-        "Generate Graph",
-        key="graph_btn"
-    ):
-
-        st.info(
-            f"Showing performance from {startDate} to {endDate}"
+        startDate = st.date_input(
+            "Start Date",
+            key="start_date"
         )
 
-        st.write("Imagine a graph here.")
+        endDate = st.date_input(
+            "End Date",
+            key="end_date"
+        )
 
-elif button == "Exit":
+        if st.button(
+            "Generate Graph",
+            key="graph_btn"
+        ):
 
-    st.success(
-        "Thank you for using She Sells - See Sales"
-    )
+            st.info(
+                f"Showing performance from {startDate} to {endDate}"
+            )
+
+            st.write("Imagine a graph here.")
+
+    elif button == "Exit":
+
+        st.success(
+            "Thank you for using She Sells - See Sales"
+        )
