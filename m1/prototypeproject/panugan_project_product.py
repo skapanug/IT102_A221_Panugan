@@ -5,21 +5,22 @@ class Product:
         self.__fileManager = fileManager
 
     def loadSalesRecords(self):
-        print("[Loading Sales Records]")
+        return self.__fileManager.loadRecords(self.__productName)
 
-    def addSale(self):
-        print("Sale Added")
+    def addSale(self, date, amount):
+        self.__fileManager.addRecord(self.__productName,date,amount)
 
-    def updateSale(self):
-        print("Updated Sale")
+    def updateSale(self, date, amount):
+        self.__fileManager.updateRecord(self.__productName,date,amount)
 
-    def deleteSale(self):
-        print("Deleted Sale")
+    def deleteSale(self, date):
+        self.__fileManager.deleteRecord(self.__productName,date)
 
     def getProductName(self):
         return self.__productName
 
 
 class Tool(Product):
+
     def getCategory(self):
         return "Tool"
