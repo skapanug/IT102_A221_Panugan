@@ -5,9 +5,7 @@ import os
 from panugan_project_product import Tool
 from panugan_project_data import FileManager
 
-
 fileManager = FileManager()
-wrench = Tool("Wrench", fileManager)
 
 st.markdown("""
 <style>
@@ -26,9 +24,7 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-
 st.title("She Sells - See Sales")
-
 
 button = st.sidebar.radio(
     "Navigation",
@@ -36,69 +32,168 @@ button = st.sidebar.radio(
     key="nav"
 )
 
-
 if button == "Sales Records":
-    st.header("Sales Records")
-    st.subheader("Current Sales Records")
 
-    FILE_PATH = os.path.join(os.path.dirname(__file__),"sales_records.txt")
+    st.header("Sales Records")
+
+    FILE_PATH = os.path.join(
+        os.path.dirname(__file__),
+        "sales_records.txt"
+    )
 
     if os.path.exists(FILE_PATH):
-        data = pd.read_csv(FILE_PATH,names=["Product", "Date", "Amount"])
+
+        data = pd.read_csv(
+            FILE_PATH,
+            names=["Product", "Date", "Amount"]
+        )
+
+        st.subheader("Current Sales Records")
         st.dataframe(data)
 
+        existingProducts = sorted(
+            data["Product"].unique().tolist()
+        )
+
     else:
-        st.warning("sales_records.txt does not exist.")
 
-    option = st.radio("Select Action",["Add Sale", "Update Sale", "Delete Sale"],key="sales_action")
+        st.subheader("Current Sales Records")
+        st.info("No sales records found.")
 
+        existingProducts = []
 
+    productChoice = st.selectbox(
+        "Select Product",
+        existingProducts + ["Create New Product"]
+    )
 
+    if productChoice == "Create New Product":
 
+        productName = st.text_input(
+            "Enter Product Name"
+        )
 
+    else:
 
+        productName = productChoice
 
+    if productName:
 
-    if option == "Add Sale":
-        st.subheader("Add Sale")
-        date = st.date_input("Date")
-        amount = st.number_input("Amount Sold",min_value=0)
+        product = Tool(
+            productName,
+            fileManager
+        )
 
-        if st.button("Add"):
-            wrench.addSale(date.strftime("%Y-%m-%d"),amount)
+        option = st.radio(
+            "Select Action",
+            [
+                "Add Sale",
+                "Update Sale",
+                "Delete Sale"
+            ],
+            key="sales_action"
+        )
 
+        if option == "Add Sale":
 
+            st.subheader("Add Sale")
 
+            date = st.date_input(
+                "Date",
+                key="add_date"
+            )
 
-    elif option == "Update Sale":
-        st.subheader("Update Sale")
-        date = st.date_input("Date")
-        amount = st.number_input("New Amount",min_value=0)
+            amount = st.number_input(
+                "Amount Sold",
+                min_value=0,
+                key="add_amount"
+            )
 
-        if st.button("Update"):
-            wrench.updateSale(date.strftime("%Y-%m-%d"),amount)
+            if st.button("Add"):
 
+                product.addSale(
+                    date.strftime("%Y-%m-%d"),
+                    amount
+                )
 
+                st.success("Sale Added")
+                st.rerun()
 
+        elif option == "Update Sale":
 
-    elif option == "Delete Sale":
-        st.subheader("Delete Sale")
-        date = st.date_input("Date")
+            st.subheader("Update Sale")
 
-        if st.button("Delete"):
-            wrench.deleteSale(date.strftime("%Y-%m-%d"))
+            if os.path.exists(FILE_PATH):
 
+                productData = data[
+                    data["Product"] == productName
+                ]
 
+                if not productData.empty:
 
+                    selectedDate = st.selectbox(
+                        "Select Record",
+                        productData["Date"].tolist()
+                    )
 
+                    newAmount = st.number_input(
+                        "New Amount",
+                        min_value=0,
+                        key="update_amount"
+                    )
 
+                    if st.button("Update"):
 
+                        product.updateSale(
+                            selectedDate,
+                            newAmount
+                        )
 
+                        st.success("Sale Updated")
+                        st.rerun()
 
+                else:
+
+                    st.warning(
+                        "No records found for this product."
+                    )
+
+        elif option == "Delete Sale":
+
+            st.subheader("Delete Sale")
+
+            if os.path.exists(FILE_PATH):
+
+                productData = data[
+                    data["Product"] == productName
+                ]
+
+                if not productData.empty:
+
+                    selectedDate = st.selectbox(
+                        "Select Record To Delete",
+                        productData["Date"].tolist()
+                    )
+
+                    if st.button("Delete"):
+
+                        product.deleteSale(
+                            selectedDate
+                        )
+
+                        st.success("Sale Deleted")
+                        st.rerun()
+
+                else:
+
+                    st.warning(
+                        "No records found for this product."
+                    )
 
 elif button == "Sales Performance":
 
     st.header("Sales Performance")
+
     startDate = st.date_input(
         "Start Date",
         key="start_date"
@@ -109,12 +204,19 @@ elif button == "Sales Performance":
         key="end_date"
     )
 
-    if st.button("Generate Graph", key="graph_btn"):
+    if st.button(
+        "Generate Graph",
+        key="graph_btn"
+    ):
+
         st.info(
             f"Showing performance from {startDate} to {endDate}"
         )
-        st.write("imagine a graph")
 
+        st.write("Imagine a graph here.")
 
 elif button == "Exit":
-    st.success("Thank you for using She Sells - See Sales")
+
+    st.success(
+        "Thank you for using She Sells - See Sales"
+    )
