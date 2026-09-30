@@ -1,4 +1,5 @@
 import streamlit as st
+import plotly.express as px
 import pandas as pd
 import os
 
@@ -246,7 +247,7 @@ elif button == "Sales Performance":
                     .dt.strftime("%b %d")
                 )
 
-                import plotly.express as px
+                
 
                 fig = px.line(
                     filteredData,
