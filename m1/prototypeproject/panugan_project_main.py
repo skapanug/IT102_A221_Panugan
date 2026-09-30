@@ -41,12 +41,6 @@ if button == "Sales Records":
         "sales_records.txt"
     )
 
-    if "message" in st.session_state:
-
-        st.success(st.session_state["message"])
-
-        del st.session_state["message"]
-
     if os.path.exists(FILE_PATH):
 
         data = pd.read_csv(
@@ -70,17 +64,15 @@ if button == "Sales Records":
 
     productChoice = st.selectbox(
         "Product",
-        productList,
+        productList + ["➕ Create New Product"],
         key="product_select"
-    ) if productList else ""
-
-    newProduct = st.text_input(
-        "Create New Product"
     )
 
-    if newProduct.strip():
+    if productChoice == "➕ Create New Product":
 
-        productName = newProduct.strip()
+        productName = st.text_input(
+            "Enter Product Name"
+        ).strip()
 
     else:
 
@@ -112,6 +104,14 @@ if button == "Sales Records":
                 "No records found for this product."
             )
 
+        if "message" in st.session_state:
+
+            st.success(
+                st.session_state["message"]
+            )
+
+            del st.session_state["message"]
+
         option = st.radio(
             "Select Action",
             [
@@ -122,7 +122,7 @@ if button == "Sales Records":
             key="sales_action"
         )
 
-        # ADD
+        # ADD SALE
         if option == "Add Sale":
 
             st.subheader("Add Sale")
@@ -145,15 +145,13 @@ if button == "Sales Records":
                     amount
                 )
 
-                st.write(FILE_PATH)
-
                 st.session_state["message"] = (
                     f"{productName} sale added."
                 )
 
                 st.rerun()
 
-        # UPDATE
+        # UPDATE SALE
         elif option == "Update Sale":
 
             st.subheader("Update Sale")
@@ -161,7 +159,7 @@ if button == "Sales Records":
             if not filteredData.empty:
 
                 selectedDate = st.selectbox(
-                    "Record",
+                    "Select Record",
                     filteredData["Date"].tolist(),
                     key="update_record"
                 )
@@ -191,7 +189,7 @@ if button == "Sales Records":
                     "No records available."
                 )
 
-        # DELETE
+        # DELETE SALE
         elif option == "Delete Sale":
 
             st.subheader("Delete Sale")
@@ -199,7 +197,7 @@ if button == "Sales Records":
             if not filteredData.empty:
 
                 selectedDate = st.selectbox(
-                    "Record To Delete",
+                    "Select Record To Delete",
                     filteredData["Date"].tolist(),
                     key="delete_record"
                 )
@@ -222,33 +220,33 @@ if button == "Sales Records":
                     "No records available."
                 )
 
-    elif button == "Sales Performance":
+elif button == "Sales Performance":
 
-        st.header("Sales Performance")
+    st.header("Sales Performance")
 
-        startDate = st.date_input(
-            "Start Date",
-            key="start_date"
+    startDate = st.date_input(
+        "Start Date",
+        key="start_date"
+    )
+
+    endDate = st.date_input(
+        "End Date",
+        key="end_date"
+    )
+
+    if st.button(
+        "Generate Graph",
+        key="graph_btn"
+    ):
+
+        st.info(
+            f"Showing performance from {startDate} to {endDate}"
         )
 
-        endDate = st.date_input(
-            "End Date",
-            key="end_date"
-        )
+        st.write("Imagine a graph here.")
 
-        if st.button(
-            "Generate Graph",
-            key="graph_btn"
-        ):
+elif button == "Exit":
 
-            st.info(
-                f"Showing performance from {startDate} to {endDate}"
-            )
-
-            st.write("Imagine a graph here.")
-
-    elif button == "Exit":
-
-        st.success(
-            "Thank you for using She Sells - See Sales"
-        )
+    st.success(
+        "Thank you for using She Sells - See Sales"
+    )
