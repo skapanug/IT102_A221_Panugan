@@ -41,6 +41,12 @@ if button == "Sales Records":
         "sales_records.txt"
     )
 
+    if "message" in st.session_state:
+
+        st.success(st.session_state["message"])
+
+        del st.session_state["message"]
+
     if os.path.exists(FILE_PATH):
 
         data = pd.read_csv(
@@ -49,7 +55,7 @@ if button == "Sales Records":
         )
 
         productList = sorted(
-            data["Product"].unique().tolist()
+            data["Product"].astype(str).unique().tolist()
         )
 
     else:
@@ -60,16 +66,21 @@ if button == "Sales Records":
 
         productList = []
 
+    st.subheader("Select Product")
+
     productChoice = st.selectbox(
-        "Select Product",
-        productList + ["Create New Product"]
+        "Product",
+        productList,
+        key="product_select"
+    ) if productList else ""
+
+    newProduct = st.text_input(
+        "Create New Product"
     )
 
-    if productChoice == "Create New Product":
+    if newProduct.strip():
 
-        productName = st.text_input(
-            "Enter Product Name"
-        )
+        productName = newProduct.strip()
 
     else:
 
@@ -110,6 +121,104 @@ if button == "Sales Records":
             ],
             key="sales_action"
         )
+
+        # ADD
+        if option == "Add Sale":
+
+            st.subheader("Add Sale")
+
+            date = st.date_input(
+                "Date",
+                key="add_date"
+            )
+
+            amount = st.number_input(
+                "Amount Sold",
+                min_value=0,
+                key="add_amount"
+            )
+
+            if st.button("Add"):
+
+                product.addSale(
+                    date.strftime("%Y-%m-%d"),
+                    amount
+                )
+
+                st.session_state["message"] = (
+                    f"{productName} sale added."
+                )
+
+                st.rerun()
+
+        # UPDATE
+        elif option == "Update Sale":
+
+            st.subheader("Update Sale")
+
+            if not filteredData.empty:
+
+                selectedDate = st.selectbox(
+                    "Record",
+                    filteredData["Date"].tolist(),
+                    key="update_record"
+                )
+
+                newAmount = st.number_input(
+                    "New Amount",
+                    min_value=0,
+                    key="update_amount"
+                )
+
+                if st.button("Update"):
+
+                    product.updateSale(
+                        selectedDate,
+                        newAmount
+                    )
+
+                    st.session_state["message"] = (
+                        f"{productName} record updated."
+                    )
+
+                    st.rerun()
+
+            else:
+
+                st.warning(
+                    "No records available."
+                )
+
+        # DELETE
+        elif option == "Delete Sale":
+
+            st.subheader("Delete Sale")
+
+            if not filteredData.empty:
+
+                selectedDate = st.selectbox(
+                    "Record To Delete",
+                    filteredData["Date"].tolist(),
+                    key="delete_record"
+                )
+
+                if st.button("Delete"):
+
+                    product.deleteSale(
+                        selectedDate
+                    )
+
+                    st.session_state["message"] = (
+                        f"{productName} record deleted."
+                    )
+
+                    st.rerun()
+
+            else:
+
+                st.warning(
+                    "No records available."
+                )
 
         # ADD SALE
         if option == "Add Sale":
