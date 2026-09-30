@@ -1,76 +1,111 @@
+import streamlit as st
+import pandas as pd
+import os
+
 from panugan_project_product import Tool
 from panugan_project_data import FileManager
 
+
 fileManager = FileManager()
 wrench = Tool("Wrench", fileManager)
-wrench.loadSalesRecords()
+
+st.markdown("""
+<style>
+.stApp {
+    background-color: #1a0d0d;
+    color: white;
+}
+
+section[data-testid="stSidebar"] {
+    background-color: #2b1111;
+}
+
+h1, h2, h3 {
+    color: #ff8c00;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
-print("Menu:")
-print("1 - Sales Records")
-print("2 - Sales Performance")
-print("3 - Exit")
+st.title("She Sells - See Sales")
 
-button = int(input())
 
-if button == 1:
-    if button == 1:
-        print("Product:", wrench.getProductName())
-        print("Sales Records:", wrench.getSalesRecords())
-        print("\nOptions:")
-        print("1 - Add Sale")
-        print("2 - Update Sale")
-        print("3 - Delete Sale")
+button = st.sidebar.radio(
+    "Navigation",
+    ["Sales Records", "Sales Performance", "Exit"],
+    key="nav"
+)
 
-        option = int(input())
 
-    if option == 1:
+if button == "Sales Records":
+    st.header("Sales Records")
+    st.subheader("Current Sales Records")
 
-        date = input("Date: ")
-        sold = int(input("Amount Sold: "))
+    FILE_PATH = os.path.join(os.path.dirname(__file__),"sales_records.txt")
 
-        wrench.addSale(date, sold)
+    if os.path.exists(FILE_PATH):
+        data = pd.read_csv(FILE_PATH,names=["Product", "Date", "Amount"])
+        st.dataframe(data)
 
-        print("Updated Records:")
-        print(wrench.getSalesRecords())
+    else:
+        st.warning("sales_records.txt does not exist.")
 
-    elif option == 2:
+    option = st.radio("Select Action",["Add Sale", "Update Sale", "Delete Sale"],key="sales_action")
 
-        date = input("Enter date to update: ")
+    if option == "Add Sale":
+        st.subheader("Add Sale")
+        date = st.text_input("Date", key="add_date")
+        amount = st.number_input(
+            "Amount Sold",
+            min_value=0,
+            key="add_amount"
+        )
 
-        if date in wrench.getSalesRecords():
+        if st.button("Add", key="add_btn"):
+            wrench.addSale()
+            st.success("Sale Added")
 
-            sold = int(input("New Amount Sold: "))
+    elif option == "Update Sale":
+        st.subheader("Update Sale")
+        date = st.text_input("Date", key="update_date")
+        amount = st.number_input(
+            "New Amount",
+            min_value=0,
+            key="update_amount"
+        )
 
-            wrench.getSalesRecords()[date] = sold
+        if st.button("Update", key="update_btn"):
+            wrench.updateSale()
+            st.success("Sale Updated")
 
-            print("Record Updated")
-            print(wrench.getSalesRecords())
+    elif option == "Delete Sale":
+        st.subheader("Delete Sale")
+        date = st.text_input("Date", key="delete_date")
 
-        else:
-            print("Date not found")
+        if st.button("Delete", key="delete_btn"):
+            wrench.deleteSale()
+            st.success("Sale Deleted")
 
-    elif option == 3:
 
-        date = input("Enter date to delete: ")
+elif button == "Sales Performance":
 
-        if date in wrench.getSalesRecords():
+    st.header("Sales Performance")
+    startDate = st.date_input(
+        "Start Date",
+        key="start_date"
+    )
 
-            del wrench.getSalesRecords()[date]
+    endDate = st.date_input(
+        "End Date",
+        key="end_date"
+    )
 
-            print("Record Deleted")
-            print(wrench.getSalesRecords())
+    if st.button("Generate Graph", key="graph_btn"):
+        st.info(
+            f"Showing performance from {startDate} to {endDate}"
+        )
+        st.write("imagine a graph")
 
-        else:
-            print("Date not found")
 
-elif button == 2:
-
-    startDate = input("Start Date: ")
-    endDate = input("End Date: ")
-    print("STATS")
-    print("Showing sales performance from", startDate, "to", endDate)
-
-elif button == 3:
-
-    print("Exiting")
+elif button == "Exit":
+    st.success("Thank you for using She Sells - See Sales")

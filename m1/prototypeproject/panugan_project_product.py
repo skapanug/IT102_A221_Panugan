@@ -1,35 +1,25 @@
 class Product:
 
     def __init__(self, productName, fileManager):
-
         self.__productName = productName
-        self.__salesRecords = {}
         self.__fileManager = fileManager
 
     def loadSalesRecords(self):
+        print("[Loading Sales Records]")
 
-        self.__salesRecords = self.__fileManager.loadRecords(
-            self.__productName
-        )
+    def addSale(self):
+        print("Sale Added")
 
-    def addSale(self, date, amount):
+    def updateSale(self):
+        print("Updated Sale")
 
-        self.__salesRecords[date] = amount
-
-        self.__fileManager.saveSale(
-            self.__productName,
-            date,
-            amount
-        )
-
-    def getSalesRecords(self):
-        return self.__salesRecords
+    def deleteSale(self):
+        print("Deleted Sale")
 
     def getProductName(self):
         return self.__productName
 
 
 class Tool(Product):
-
     def getCategory(self):
         return "Tool"
