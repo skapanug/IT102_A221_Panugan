@@ -144,6 +144,11 @@ if button == "Sales Records":
 
                 newAmount = st.number_input("New Amount",min_value=0,key="update_amount")
 
+
+
+
+
+
                 if st.button("Update"):
                     product.updateSale(selectedDate,newAmount)
                     st.session_state["message"] = (f"{productName} record updated.")
@@ -174,41 +179,25 @@ if button == "Sales Records":
 
 
 
+
 elif button == "Sales Performance":
 
     st.header("Sales Performance")
 
-    FILE_PATH = os.path.join(
-        os.path.dirname(__file__),
-        "sales_records.txt"
-    )
+    FILE_PATH = os.path.join(os.path.dirname(__file__),"sales_records.txt")
 
     if os.path.exists(FILE_PATH):
-
-        data = pd.read_csv(
-            FILE_PATH,
-            names=["Product", "Date", "Amount"]
-        )
+        data = pd.read_csv(FILE_PATH,names=["Product", "Date", "Amount"])
 
         products = sorted(
             data["Product"].unique().tolist()
         )
 
-        selectedProduct = st.selectbox(
-            "Select Product",
-            products,
-            key="graph_product"
-        )
+        selectedProduct = st.selectbox("Select Product",products,key="graph_product")
 
-        startDate = st.date_input(
-            "Start Date",
-            key="start_date"
-        )
+        startDate = st.date_input("Start Date",key="start_date")
 
-        endDate = st.date_input(
-            "End Date",
-            key="end_date"
-        )
+        endDate = st.date_input("End Date",key="end_date")
 
         if st.button(
             "Generate Graph",
