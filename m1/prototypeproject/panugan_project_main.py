@@ -36,22 +36,37 @@ button = st.sidebar.radio(
 
 if button == "Sales Records":
     st.header("Sales Records")
-    FILE_PATH = os.path.join(
-        os.path.dirname(__file__),
-        "sales_records.txt"
+    response = (
+        fileManager.supabase
+        .table("sales_records")
+        .select("*")
+        .execute()
     )
-    if os.path.exists(FILE_PATH):
-        data = pd.read_csv(FILE_PATH,names=["Product", "Date", "Amount"])
 
-        productList = sorted(data["Product"].astype(str).unique().tolist())
+    data = pd.DataFrame(response.data)
+
+    if not data.empty:
+
+            data.rename(
+                columns={
+                    "product": "Product",
+                    "date": "Date",
+                    "amount": "Amount"
+                },
+                inplace=True
+            )
+
+            productList = sorted(
+                data["Product"].astype(str).unique().tolist()
+            )
 
     else:
 
-        data = pd.DataFrame(
-            columns=["Product", "Date", "Amount"]
-        )
+            data = pd.DataFrame(
+                columns=["Product", "Date", "Amount"]
+            )
 
-        productList = []
+            productList = []
 
     st.subheader("Select Product")
 
@@ -184,20 +199,45 @@ elif button == "Sales Performance":
 
     st.header("Sales Performance")
 
-    FILE_PATH = os.path.join(os.path.dirname(__file__),"sales_records.txt")
+    response = (
+        fileManager.supabase
+        .table("sales_records")
+        .select("*")
+        .execute()
+    )
 
-    if os.path.exists(FILE_PATH):
-        data = pd.read_csv(FILE_PATH,names=["Product", "Date", "Amount"])
+    data = pd.DataFrame(response.data)
+
+    if not data.empty:
+
+        data.rename(
+            columns={
+                "product": "Product",
+                "date": "Date",
+                "amount": "Amount"
+            },
+            inplace=True
+        )
 
         products = sorted(
             data["Product"].unique().tolist()
         )
 
-        selectedProduct = st.selectbox("Select Product",products,key="graph_product")
+        selectedProduct = st.selectbox(
+            "Select Product",
+            products,
+            key="graph_product"
+        )
 
-        startDate = st.date_input("Start Date",key="start_date")
+        startDate = st.date_input(
+            "Start Date",
+            key="start_date"
+        )
 
-        endDate = st.date_input("End Date",key="end_date")
+        endDate = st.date_input(
+            "End Date",
+            key="end_date"
+        )
 
         if st.button(
             "Generate Graph",
@@ -257,7 +297,7 @@ elif button == "Sales Performance":
     else:
 
         st.warning(
-            "sales_records.txt does not exist."
+            "No records found."
         )
 
 elif button == "Exit":

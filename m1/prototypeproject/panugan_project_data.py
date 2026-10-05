@@ -1,59 +1,81 @@
-import os
+from supabase import create_client
+
 
 class FileManager:
 
-    FILE_PATH = os.path.join(
-        os.path.dirname(__file__),
-        "sales_records.txt"
-    )
+    SUPABASE_URL = "https://avhmcliomusuvvwepock.supabase.co"
+
+    SUPABASE_KEY = "sb_publishable_-3lVyLSfP3ejc6H-3JD8rQ_d1ZNeiM6"
+
+    def __init__(self):
+
+        self.supabase = create_client(
+            self.SUPABASE_URL,
+            self.SUPABASE_KEY
+        )
+
 
     def loadRecords(self, productName):
-        records = []
-        try:
-            with open(self.FILE_PATH, "r") as file:
-                for line in file:
-                    product, date, amount = line.strip().split(",")
-                    if product == productName:
-                        records.append(
-                            [product, date, amount]
-                        )
 
-        except FileNotFoundError:
-            pass
+        response = (
+            self.supabase
+            .table("sales_records")
+            .select("*")
+            .eq("product", productName)
+            .execute()
+        )
+
+        records = []
+
+        for row in response.data:
+
+            records.append([
+                row["product"],
+                row["date"],
+                row["amount"]
+            ])
 
         return records
 
+
     def addRecord(self, productName, date, amount):
-        with open(self.FILE_PATH, "a") as file:
-            file.write(f"{productName},{date},{amount}\n")
+
+        self.supabase.table(
+            "sales_records"
+        ).insert(
+            {
+                "product": productName,
+                "date": date,
+                "amount": amount
+            }
+        ).execute()
 
 
     def updateRecord(self, productName, date, amount):
-        lines = []
-        with open(self.FILE_PATH, "r") as file:
-            for line in file:
-                product, oldDate, oldAmount = (line.strip().split(","))
 
-                if (product == productName and oldDate == date):
-                    lines.append(f"{productName},{date},{amount}\n")
-
-                else:
-
-                    lines.append(line)
-
-        with open(self.FILE_PATH, "w") as file:
-            file.writelines(lines)
+        self.supabase.table(
+            "sales_records"
+        ).update(
+            {
+                "amount": amount
+            }
+        ).eq(
+            "product",
+            productName
+        ).eq(
+            "date",
+            date
+        ).execute()
 
 
     def deleteRecord(self, productName, date):
-        lines = []
-        with open(self.FILE_PATH, "r") as file:
-            for line in file:
-                product, oldDate, amount = (line.strip().split(","))
 
-                if not (product == productName and oldDate == date):
-                    lines.append(line)
-
-        with open(self.FILE_PATH, "w") as file:
-
-            file.writelines(lines)
+        self.supabase.table(
+            "sales_records"
+        ).delete().eq(
+            "product",
+            productName
+        ).eq(
+            "date",
+            date
+        ).execute()
