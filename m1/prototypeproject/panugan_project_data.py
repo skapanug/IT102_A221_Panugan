@@ -79,3 +79,41 @@ class FileManager:
             "date",
             date
         ).execute()
+    def registerUser(self, username, password):
+
+        existingUser = (
+            self.supabase
+            .table("users")
+            .select("*")
+            .eq("username", username)
+            .execute()
+        )
+
+        if existingUser.data:
+
+            return False
+
+        self.supabase.table(
+            "users"
+        ).insert(
+            {
+                "username": username,
+                "password": password
+            }
+        ).execute()
+
+        return True
+
+
+    def loginUser(self, username, password):
+
+        user = (
+            self.supabase
+            .table("users")
+            .select("*")
+            .eq("username", username)
+            .eq("password", password)
+            .execute()
+        )
+
+        return len(user.data) > 0
