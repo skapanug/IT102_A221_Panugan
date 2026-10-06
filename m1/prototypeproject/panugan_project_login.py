@@ -11,7 +11,7 @@ def loginScreen():
             """
             <div style="
                 background-color:white;
-                height:700px;
+                height:100vh;
                 border-radius:0px;
             ">
             </div>
@@ -67,7 +67,7 @@ def loginScreen():
 
 def signupScreen():
 
-    leftCol, rightCol = st.columns([3, 2])
+    leftCol, rightCol = st.columns([1, 1])
 
     with leftCol:
 
@@ -75,7 +75,7 @@ def signupScreen():
             """
             <div style="
                 background-color:white;
-                height:700px;
+                height:100vh;
                 border-radius:0px;
             ">
             </div>

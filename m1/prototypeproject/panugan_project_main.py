@@ -9,6 +9,11 @@ from panugan_project_login import (
     signupScreen
 )
 
+
+st.set_page_config(
+    layout="wide"
+)
+
 fileManager = FileManager()
 
 if "logged_in" not in st.session_state:
@@ -33,6 +38,19 @@ section[data-testid="stSidebar"] {
 h1, h2, h3 {
     color: #ff8c00;
 }
+
+.block-container {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    max-width: 100%;
+}
+
+section.main > div {
+    padding-top: 0rem;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
