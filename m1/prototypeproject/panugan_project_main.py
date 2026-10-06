@@ -112,6 +112,13 @@ if not st.session_state.logged_in:
 
     st.stop()
 st.title("She Sells - See Sales")
+if st.sidebar.button("Logout"):
+
+    st.session_state.logged_in = False
+
+    st.session_state.user = ""
+
+    st.rerun()
 
 button = st.sidebar.radio(
     "Navigation",
@@ -124,9 +131,13 @@ button = st.sidebar.radio(
 if button == "Sales Records":
     st.header("Sales Records")
     response = (
-        fileManager.supabase
-        .table("sales_records")
-        .select("*")
+    fileManager.supabase
+    .table("sales_records")
+    .select("*")
+    .eq(
+        "username",
+        st.session_state.user
+        )
         .execute()
     )
 
@@ -287,9 +298,13 @@ elif button == "Sales Performance":
     st.header("Sales Performance")
 
     response = (
-        fileManager.supabase
-        .table("sales_records")
-        .select("*")
+    fileManager.supabase
+    .table("sales_records")
+    .select("*")
+    .eq(
+        "username",
+        st.session_state.user
+        )
         .execute()
     )
 

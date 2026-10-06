@@ -1,3 +1,4 @@
+import streamlit as st
 from supabase import create_client
 
 
@@ -21,6 +22,7 @@ class FileManager:
             self.supabase
             .table("sales_records")
             .select("*")
+            .eq("username", st.session_state.user)
             .eq("product", productName)
             .execute()
         )
@@ -44,6 +46,7 @@ class FileManager:
             "sales_records"
         ).insert(
             {
+                "username": st.session_state.user,
                 "product": productName,
                 "date": date,
                 "amount": amount
