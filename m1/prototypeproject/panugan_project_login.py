@@ -3,44 +3,16 @@ import streamlit as st
 
 def loginScreen():
 
-    st.markdown(
-        """
-        <style>
-
-        .login-container {
-            display: flex;
-            height: 80vh;
-        }
-
-        .left-panel {
-            background-color: white;
-            flex: 1;
-            border-radius: 15px 0px 0px 15px;
-        }
-
-        .right-panel {
-            background-color: #440000;
-            flex: 1;
-            padding: 50px;
-            border-radius: 0px 15px 15px 0px;
-            color: white;
-        }
-
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    leftCol, rightCol = st.columns(2)
+    leftCol, rightCol = st.columns([3, 2])
 
     with leftCol:
 
         st.markdown(
             """
             <div style="
-                background:white;
-                height:600px;
-                border-radius:15px;
+                background-color:white;
+                height:700px;
+                border-radius:0px;
             ">
             </div>
             """,
@@ -49,7 +21,18 @@ def loginScreen():
 
     with rightCol:
 
-        st.header("Login")
+        st.markdown(
+            """
+            <div style="
+                background-color:#8d1021;
+                padding:30px;
+                border-radius:10px;
+            ">
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.subheader("Login")
 
         username = st.text_input(
             "Username",
@@ -63,8 +46,17 @@ def loginScreen():
         )
 
         loginButton = st.button(
-            "Login"
+            "Login",
+            use_container_width=True
         )
+
+        st.markdown("---")
+
+        st.caption(
+            "Don't have an account? Use Sign Up."
+        )
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     return (
         username,
@@ -75,16 +67,16 @@ def loginScreen():
 
 def signupScreen():
 
-    leftCol, rightCol = st.columns(2)
+    leftCol, rightCol = st.columns([3, 2])
 
     with leftCol:
 
         st.markdown(
             """
             <div style="
-                background:white;
-                height:600px;
-                border-radius:15px;
+                background-color:white;
+                height:700px;
+                border-radius:0px;
             ">
             </div>
             """,
@@ -93,7 +85,18 @@ def signupScreen():
 
     with rightCol:
 
-        st.header("Sign Up")
+        st.markdown(
+            """
+            <div style="
+                background-color:#8d1021;
+                padding:30px;
+                border-radius:10px;
+            ">
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.subheader("Create Account")
 
         username = st.text_input(
             "Username",
@@ -113,8 +116,11 @@ def signupScreen():
         )
 
         signupButton = st.button(
-            "Create Account"
+            "Create Account",
+            use_container_width=True
         )
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     return (
         username,
