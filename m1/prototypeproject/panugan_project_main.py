@@ -10,6 +10,7 @@ from panugan_project_login import (
 )
 
 fileManager = FileManager()
+st.write(hasattr(fileManager, "registerUser"))
 if "logged_in" not in st.session_state:
 
     st.session_state.logged_in = False
