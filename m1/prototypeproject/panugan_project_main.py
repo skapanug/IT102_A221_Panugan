@@ -4,8 +4,19 @@ import os
 
 from panugan_project_product import Tool
 from panugan_project_data import FileManager
+from panugan_project_login import (
+    loginScreen,
+    signupScreen
+)
 
 fileManager = FileManager()
+if "logged_in" not in st.session_state:
+
+    st.session_state.logged_in = False
+
+if "user" not in st.session_state:
+
+    st.session_state.user = ""
 
 st.markdown("""
 <style>
@@ -24,6 +35,81 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
+
+if not st.session_state.logged_in:
+
+    page = st.radio(
+        "Account",
+        [
+            "Login",
+            "Sign Up"
+        ]
+    )
+
+    if page == "Login":
+
+        (
+            username,
+            password,
+            loginButton
+        ) = loginScreen()
+
+        if loginButton:
+
+            if fileManager.loginUser(
+                username,
+                password
+            ):
+
+                st.session_state.logged_in = True
+
+                st.session_state.user = username
+
+                st.rerun()
+
+            else:
+
+                st.error(
+                    "Invalid username or password."
+                )
+
+    else:
+
+        (
+            username,
+            password,
+            confirmPassword,
+            signupButton
+        ) = signupScreen()
+
+        if signupButton:
+
+            if password != confirmPassword:
+
+                st.error(
+                    "Passwords do not match."
+                )
+
+            else:
+
+                success = fileManager.registerUser(
+                    username,
+                    password
+                )
+
+                if success:
+
+                    st.success(
+                        "Account created."
+                    )
+
+                else:
+
+                    st.error(
+                        "Username already exists."
+                    )
+
+    st.stop()
 st.title("She Sells - See Sales")
 
 button = st.sidebar.radio(
