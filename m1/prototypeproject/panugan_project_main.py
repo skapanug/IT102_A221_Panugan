@@ -500,15 +500,7 @@ elif button == "Sales Performance":
                     use_container_width=True,
                     hide_index=True
                 )
-                st.download_button(
-                        "Download PDF",
-                        data=open(
-                            "sales_report.pdf",
-                            "rb"
-                        ).read(),
-                        file_name="sales_report.pdf",
-                        mime="application/pdf"
-                    )
+                
 
                 pdf = SimpleDocTemplate(
                         "sales_report.pdf"
