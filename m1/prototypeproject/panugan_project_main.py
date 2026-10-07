@@ -39,17 +39,7 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-.block-container {
-    padding-top: 0rem;
-    padding-bottom: 0rem;
-    padding-left: 0rem;
-    padding-right: 0rem;
-    max-width: 100%;
-}
 
-section.main > div {
-    padding-top: 0rem;
-}
 
 </style>
 """, unsafe_allow_html=True)
