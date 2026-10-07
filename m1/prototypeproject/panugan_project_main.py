@@ -486,6 +486,9 @@ elif button == "Sales Performance":
                     fig,
                     use_container_width=True
                 )
+                fig.write_image(
+                    "sales_graph.png"
+                )
     
                 filteredData = filteredData[
                     ["Product", "Date", "Amount"]
