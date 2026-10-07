@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import os
+import plotly.graph_objects as go
+
+
 
 from panugan_project_product import Tool
 from panugan_project_data import FileManager
@@ -388,12 +391,84 @@ elif button == "Sales Performance":
                     .dt.strftime("%b %d")
                 )
 
-                chartData = chartData.set_index(
-                    "DisplayDate"
+                amounts = chartData["Amount"].tolist()
+
+                if len(amounts) >= 2:
+
+                    changes = []
+
+                    for i in range(1, len(amounts)):
+
+                        changes.append(
+                            amounts[i] - amounts[i - 1]
+                        )
+
+                    averageChange = (
+                        sum(changes) / len(changes)
+                    )
+
+                    predictedAmount = (
+                        amounts[-1] + averageChange
+                    )
+
+                else:
+
+                    predictedAmount = amounts[-1]
+
+                lastDate = chartData["Date"].iloc[-1]
+
+                predictedDate = (
+                    lastDate +
+                    pd.Timedelta(days=1)
                 )
 
-                st.line_chart(
-                    chartData["Amount"]
+                fig = go.Figure()
+
+                fig.add_trace(
+                    go.Scatter(
+                        x=chartData["DisplayDate"],
+                        y=chartData["Amount"],
+                        mode="lines+markers",
+                        name="Actual Sales",
+                        line=dict(
+                            color="#66b3ff",
+                            width=3
+                        )
+                    )
+                )
+
+                fig.add_trace(
+                    go.Scatter(
+                        x=[
+                            chartData["DisplayDate"].iloc[-1],
+                            predictedDate.strftime("%b %d")
+                        ],
+                        y=[
+                            amounts[-1],
+                            predictedAmount
+                        ],
+                        mode="lines+markers",
+                        name="Prediction",
+                        line=dict(
+                            color="rgba(102,179,255,0.5)",
+                            width=3,
+                            dash="dash"
+                        )
+                    )
+                )
+
+                fig.update_layout(
+                    paper_bgcolor="#080d18",
+                    plot_bgcolor="#080d18",
+                    font_color="white",
+                    legend=dict(
+                        font=dict(color="white")
+                    )
+                )
+
+                st.plotly_chart(
+                    fig,
+                    use_container_width=True
                 )
                 filteredData = filteredData[
                     ["Product", "Date", "Amount"]
