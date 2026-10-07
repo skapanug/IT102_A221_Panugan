@@ -116,7 +116,14 @@ if not st.session_state.logged_in:
                     )
 
     st.stop()
-st.title("She Sells - See Sales")
+button = st.sidebar.radio(
+    "Navigation",
+    ["Sales Records", "Sales Performance"],
+    key="nav"
+)
+
+st.sidebar.markdown("---")
+
 if st.sidebar.button("Logout"):
 
     st.session_state.logged_in = False
@@ -124,12 +131,6 @@ if st.sidebar.button("Logout"):
     st.session_state.user = ""
 
     st.rerun()
-
-button = st.sidebar.radio(
-    "Navigation",
-    ["Sales Records", "Sales Performance", "Exit"],
-    key="nav"
-)
 
 
 
@@ -407,8 +408,3 @@ elif button == "Sales Performance":
             "No records found."
         )
 
-elif button == "Exit":
-
-    st.success(
-        "Thank you for using She Sells - See Sales"
-    )
