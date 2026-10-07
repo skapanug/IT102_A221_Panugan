@@ -395,10 +395,18 @@ elif button == "Sales Performance":
                 st.line_chart(
                     chartData["Amount"]
                 )
+                filteredData = filteredData[
+                    ["Product", "Date", "Amount"]
+                ]
 
+                filteredData["Date"] = (
+                    filteredData["Date"]
+                    .dt.strftime("%Y-%m-%d")
+                )
                 st.dataframe(
                     filteredData,
-                    use_container_width=True
+                    use_container_width=True,
+                    hide_index=True
                 )
 
             else:
