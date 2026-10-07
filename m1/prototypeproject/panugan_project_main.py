@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import os
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
@@ -431,6 +433,7 @@ elif button == "Sales Performance":
 
                     predictedAmount = amounts[-1]
 
+
                 lastDate = chartData["Date"].iloc[-1]
 
                 predictedDate = (
@@ -483,17 +486,64 @@ elif button == "Sales Performance":
                 )
 
                 st.plotly_chart(
-                    fig,
-                    use_container_width=True
+                            fig,
+                            use_container_width=True
+                        )
+
+                graphDates = chartData["DisplayDate"].tolist()
+
+                graphAmounts = chartData["Amount"].tolist()
+
+                graphDates.append(
+                    predictedDate.strftime("%b %d")
                 )
-                fig.write_image(
+
+                predictionAmounts = graphAmounts.copy()
+
+                predictionAmounts.append(
+                    predictedAmount
+                )
+
+                plt.figure(figsize=(8, 4))
+
+                plt.plot(
+                    chartData["DisplayDate"],
+                    chartData["Amount"],
+                    marker="o",
+                    color="blue",
+                    label="Actual Sales"
+                )
+
+                plt.plot(
+                    [
+                        chartData["DisplayDate"].iloc[-1],
+                        predictedDate.strftime("%b %d")
+                    ],
+                    [
+                        graphAmounts[-1],
+                        predictedAmount
+                    ],
+                    linestyle="--",
+                    color="navy",
+                    marker="o",
+                    label="Prediction"
+                )
+
+                plt.legend()
+
+                plt.tight_layout()
+
+                plt.savefig(
                     "sales_graph.png"
                 )
-    
+
+                plt.close()
+
                 filteredData = filteredData[
                     ["Product", "Date", "Amount"]
                 ]
-
+          
+    
                 filteredData["Date"] = (
                     filteredData["Date"]
                     .dt.strftime("%Y-%m-%d")
@@ -517,6 +567,14 @@ elif button == "Sales Performance":
                     Paragraph(
                         f"{selectedProduct} Sales Report",
                         styles["Heading1"]
+                    )
+                
+                )
+                content.append(
+                    Image(
+                        "sales_graph.png",
+                        width=400,
+                        height=250
                     )
                 )
 
@@ -554,13 +612,15 @@ elif button == "Sales Performance":
                     "rb"
                 ) as file:
 
-                    st.download_button(
-                        "Download Generated PDF",
-                        file.read(),
-                        file_name="sales_report.pdf",
-                        mime="application/pdf"
-                    )
-                
+                    pdfBytes = file.read()
+
+                st.download_button(
+                    "Download PDF",
+                    data=pdfBytes,
+                    file_name="sales_report.pdf",
+                    mime="application/pdf"
+                )
+                                
             else:
 
                 st.warning(
