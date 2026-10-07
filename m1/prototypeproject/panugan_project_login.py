@@ -72,7 +72,7 @@ def loginScreen():
 
 def signupScreen():
 
-    leftCol, rightCol = st.columns([1, 1])
+    leftCol, rightCol = st.columns([3, 2])
 
     with leftCol:
 
