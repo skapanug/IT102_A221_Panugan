@@ -203,11 +203,16 @@ if button == "Sales Records":
             data["Product"] == productName
         ]
 
+        filteredData = filteredData[
+            ["Product", "Date", "Amount"]
+        ]
+
         if not filteredData.empty:
 
             st.dataframe(
                 filteredData,
-                use_container_width=True
+                use_container_width=True,
+                hide_index=True
             )
 
         else:
