@@ -493,72 +493,7 @@ elif button == "Sales Performance":
                     use_container_width=True,
                     hide_index=True
                 )
-                pdfContent = filteredData.to_csv(
-                            index=False
-                        )
-
-                st.download_button(
-                            "Download Report",
-                            pdfContent,
-                            file_name="sales_report.csv",
-                            mime="text/csv"
-                        )
-                pdf = SimpleDocTemplate(
-                            "sales_report.pdf"
-                        )
-
-                styles = getSampleStyleSheet()
-
-                content = []
-
-                content.append(
-                    Paragraph(
-                        f"{selectedProduct} Sales Report",
-                        styles["Heading1"]
-                    )
-                )
-
-                content.append(
-                    Spacer(1, 12)
-                )
-
-                content.append(
-                    Image(
-                        "sales_graph.png",
-                        width=400,
-                        height=250
-                    )
-                )
-
-                content.append(
-                    Spacer(1, 12)
-                )
-
-                recordsText = "<br/>".join([
-                    f'{row["Product"]} | {row["Date"]} | {row["Amount"]}'
-                    for _, row in filteredData.iterrows()
-                ])
-
-                content.append(
-                    Paragraph(
-                        recordsText,
-                        styles["BodyText"]
-                    )
-                )
-
-                pdf.build(content)
-
-                with open(
-                    "sales_report.pdf",
-                    "rb"
-                ) as file:
-
-                    st.download_button(
-                        "Download PDF",
-                        file,
-                        file_name="sales_report.pdf",
-                        mime="application/pdf"
-                    )
+                
             else:
 
                 st.warning(
