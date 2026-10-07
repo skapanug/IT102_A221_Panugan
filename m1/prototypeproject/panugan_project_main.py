@@ -363,10 +363,18 @@ elif button == "Sales Performance":
             key="end_date"
         )
 
+        if "show_graph" not in st.session_state:
+
+             st.session_state.show_graph = False
+
         if st.button(
             "Generate Graph",
             key="graph_btn"
         ):
+
+            st.session_state.show_graph = True
+
+        if st.session_state.show_graph:
 
             filteredData = data[
                 data["Product"] == selectedProduct
@@ -492,65 +500,71 @@ elif button == "Sales Performance":
                     use_container_width=True,
                     hide_index=True
                 )
-                if st.button(
-                    "Download PDF"
-                ):
+                st.download_button(
+                        "Download PDF",
+                        data=open(
+                            "sales_report.pdf",
+                            "rb"
+                        ).read(),
+                        file_name="sales_report.pdf",
+                        mime="application/pdf"
+                    )
 
-                    pdf = SimpleDocTemplate(
+                pdf = SimpleDocTemplate(
                         "sales_report.pdf"
                     )
 
-                    styles = getSampleStyleSheet()
+                styles = getSampleStyleSheet()
 
-                    content = []
+                content = []
 
-                    content.append(
-                        Paragraph(
-                            f"{selectedProduct} Sales Report",
-                            styles["Heading1"]
-                        )
+                content.append(
+                    Paragraph(
+                        f"{selectedProduct} Sales Report",
+                        styles["Heading1"]
                     )
+                )
 
-                    content.append(
-                        Spacer(1, 12)
+                content.append(
+                    Spacer(1, 12)
+                )
+
+                content.append(
+                    Paragraph(
+                        f"Predicted Next Sale: {predictedAmount:.0f}",
+                        styles["BodyText"]
                     )
+                )
 
-                    content.append(
-                        Paragraph(
-                            f"Predicted Next Sale: {predictedAmount:.0f}",
-                            styles["BodyText"]
-                        )
+                content.append(
+                    Spacer(1, 12)
+                )
+
+                recordsText = "<br/>".join([
+                    f'{row["Product"]} | {row["Date"]} | {row["Amount"]}'
+                    for _, row in filteredData.iterrows()
+                ])
+
+                content.append(
+                    Paragraph(
+                        recordsText,
+                        styles["BodyText"]
                     )
+                )
 
-                    content.append(
-                        Spacer(1, 12)
+                pdf.build(content)
+
+                with open(
+                    "sales_report.pdf",
+                    "rb"
+                ) as file:
+
+                    st.download_button(
+                        "Download Generated PDF",
+                        file.read(),
+                        file_name="sales_report.pdf",
+                        mime="application/pdf"
                     )
-
-                    recordsText = "<br/>".join([
-                        f'{row["Product"]} | {row["Date"]} | {row["Amount"]}'
-                        for _, row in filteredData.iterrows()
-                    ])
-
-                    content.append(
-                        Paragraph(
-                            recordsText,
-                            styles["BodyText"]
-                        )
-                    )
-
-                    pdf.build(content)
-
-                    with open(
-                        "sales_report.pdf",
-                        "rb"
-                    ) as file:
-
-                        st.download_button(
-                            "Download Generated PDF",
-                            file.read(),
-                            file_name="sales_report.pdf",
-                            mime="application/pdf"
-                        )
                 
             else:
 
