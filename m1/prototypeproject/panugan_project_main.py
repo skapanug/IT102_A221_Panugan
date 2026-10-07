@@ -5,8 +5,7 @@ import plotly.graph_objects as go
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
-    Spacer,
-    Image
+    Spacer
 )
 
 from reportlab.lib.styles import (
@@ -493,6 +492,65 @@ elif button == "Sales Performance":
                     use_container_width=True,
                     hide_index=True
                 )
+                if st.button(
+                    "Download PDF"
+                ):
+
+                    pdf = SimpleDocTemplate(
+                        "sales_report.pdf"
+                    )
+
+                    styles = getSampleStyleSheet()
+
+                    content = []
+
+                    content.append(
+                        Paragraph(
+                            f"{selectedProduct} Sales Report",
+                            styles["Heading1"]
+                        )
+                    )
+
+                    content.append(
+                        Spacer(1, 12)
+                    )
+
+                    content.append(
+                        Paragraph(
+                            f"Predicted Next Sale: {predictedAmount:.0f}",
+                            styles["BodyText"]
+                        )
+                    )
+
+                    content.append(
+                        Spacer(1, 12)
+                    )
+
+                    recordsText = "<br/>".join([
+                        f'{row["Product"]} | {row["Date"]} | {row["Amount"]}'
+                        for _, row in filteredData.iterrows()
+                    ])
+
+                    content.append(
+                        Paragraph(
+                            recordsText,
+                            styles["BodyText"]
+                        )
+                    )
+
+                    pdf.build(content)
+
+                    with open(
+                        "sales_report.pdf",
+                        "rb"
+                    ) as file:
+
+                        st.download_button(
+                            "Download Generated PDF",
+                            file.read(),
+                            file_name="sales_report.pdf",
+                            mime="application/pdf"
+                        )
                 
             else:
 

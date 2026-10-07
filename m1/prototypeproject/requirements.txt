@@ -4,3 +4,4 @@ supabase
 plotly
 reportlab
 kaleido
+reportlab
