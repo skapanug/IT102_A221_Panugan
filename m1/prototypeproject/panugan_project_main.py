@@ -383,18 +383,79 @@ elif button == "Sales Performance":
 
                 chartData = filteredData.copy()
 
+                amounts = chartData["Amount"].tolist()
+
+                if len(amounts) >= 2:
+
+                    changes = []
+
+                    for i in range(1, len(amounts)):
+
+                        changes.append(
+                            amounts[i] - amounts[i - 1]
+                        )
+
+                    averageChange = (
+                        sum(changes) / len(changes)
+                    )
+
+                    predictedAmount = (
+                        amounts[-1] + averageChange
+                    )
+
+                else:
+
+                    predictedAmount = amounts[-1]
+
                 chartData["DisplayDate"] = (
                     chartData["Date"]
                     .dt.strftime("%b %d")
                 )
 
-                chartData = chartData.set_index(
-                    "DisplayDate"
-                )
+                lastDate = chartData["Date"].max()
+
+                nextDate = lastDate + pd.Timedelta(days=1)
+
+                predictionRow = pd.DataFrame({
+                    "Date": [nextDate],
+                    "Amount": [predictedAmount],
+                    "DisplayDate": [
+                        nextDate.strftime("%b %d")
+                    ]
+                })
+
+                actualChart = chartData[
+                    ["DisplayDate", "Amount"]
+                ].copy()
+
+                actualChart["Type"] = "Actual"
+
+                predictionChart = pd.DataFrame({
+                    "DisplayDate": [
+                        chartData.iloc[-1]["DisplayDate"],
+                        nextDate.strftime("%b %d")
+                    ],
+                    "Amount": [
+                        amounts[-1],
+                        predictedAmount
+                    ],
+                    "Type": [
+                        "Prediction",
+                        "Prediction"
+                    ]
+                })
 
                 st.line_chart(
-                    chartData["Amount"]
+                    actualChart.set_index(
+                        "DisplayDate"
+                    )["Amount"]
                 )
+
+                st.info(
+                    f"Predicted next sale amount: "
+                    f"{predictedAmount:.0f}"
+                )
+                
                 filteredData = filteredData[
                     ["Product", "Date", "Amount"]
                 ]
