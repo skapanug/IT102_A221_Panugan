@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
-    Spacer
+    Spacer,
+    Image
 )
 
 from reportlab.lib.styles import (
