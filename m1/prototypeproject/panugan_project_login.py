@@ -52,9 +52,14 @@ def loginScreen():
 
         st.markdown("---")
 
-        st.caption(
-            "Don't have an account? Use Sign Up."
-        )
+        if st.button(
+            "Create Account",
+            use_container_width=True
+        ):
+
+            st.session_state.auth_page = "Sign Up"
+
+            st.rerun()
 
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -119,6 +124,14 @@ def signupScreen():
             "Create Account",
             use_container_width=True
         )
+        if st.button(
+            "Back to Login",
+            use_container_width=True
+        ):
+
+            st.session_state.auth_page = "Login"
+
+            st.rerun()
 
         st.markdown("</div>", unsafe_allow_html=True)
 

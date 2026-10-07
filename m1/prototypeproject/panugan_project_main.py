@@ -57,13 +57,10 @@ section.main > div {
 
 if not st.session_state.logged_in:
 
-    page = st.radio(
-        "Account",
-        [
-            "Login",
-            "Sign Up"
-        ]
-    )
+    page = st.session_state.get(
+    "auth_page",
+    "Login"
+    )   
 
     if page == "Login":
 
