@@ -2,7 +2,16 @@ import streamlit as st
 import pandas as pd
 import os
 import plotly.graph_objects as go
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Image
+)
 
+from reportlab.lib.styles import (
+    getSampleStyleSheet
+)
 
 
 from panugan_project_product import Tool
@@ -470,6 +479,9 @@ elif button == "Sales Performance":
                     fig,
                     use_container_width=True
                 )
+                fig.write_image(
+                    "sales_graph.png"
+                )
                 filteredData = filteredData[
                     ["Product", "Date", "Amount"]
                 ]
@@ -483,7 +495,65 @@ elif button == "Sales Performance":
                     use_container_width=True,
                     hide_index=True
                 )
+                if st.button(
+                        "Print Report"
+                    ):
+                        pdf = SimpleDocTemplate(
+                            "sales_report.pdf"
+                        )
 
+                        styles = getSampleStyleSheet()
+
+                        content = []
+
+                        content.append(
+                            Paragraph(
+                                f"{selectedProduct} Sales Report",
+                                styles["Heading1"]
+                            )
+                        )
+
+                        content.append(
+                            Spacer(1, 12)
+                        )
+
+                        content.append(
+                            Image(
+                                "sales_graph.png",
+                                width=400,
+                                height=250
+                            )
+                        )
+
+                        content.append(
+                            Spacer(1, 12)
+                        )
+
+                        recordsText = "<br/>".join([
+                            f'{row["Product"]} | {row["Date"]} | {row["Amount"]}'
+                            for _, row in filteredData.iterrows()
+                        ])
+
+                        content.append(
+                            Paragraph(
+                                recordsText,
+                                styles["BodyText"]
+                            )
+                        )
+
+                        pdf.build(content)
+
+                        with open(
+                            "sales_report.pdf",
+                            "rb"
+                        ) as file:
+
+                            st.download_button(
+                                "Download PDF",
+                                file,
+                                file_name="sales_report.pdf",
+                                mime="application/pdf"
+                            )
             else:
 
                 st.warning(
