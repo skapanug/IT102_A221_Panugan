@@ -43,22 +43,12 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
 
-body,
-p,
-label,
-span,
-div,
-button,
 h1,
 h2,
 h3,
-[data-testid="stSidebar"],
-.stButton > button,
-.stSelectbox,
-.stTextInput,
-.stDateInput,
-.stRadio {
-    font-family: 'Playfair Display', serif !important;
+label,
+p {
+    font-family: Georgia, serif !important;
 }
 
 [data-testid="stDataFrame"],
