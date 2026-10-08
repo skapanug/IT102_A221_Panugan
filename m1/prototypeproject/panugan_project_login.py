@@ -15,19 +15,10 @@ def loginScreen():
             "logo.png"
         )
 
-        st.markdown(
-            "<div style='height:140px'></div>",
-            unsafe_allow_html=True
+        st.image(
+            logoPath,
+            width=700
         )
-
-        _, centerCol, _ = st.columns([1, 8, 1])
-
-        with centerCol:
-
-            st.image(
-                logoPath,
-                width=700
-            )
     with rightCol:
 
         st.subheader("Login")
@@ -78,19 +69,10 @@ def signupScreen():
             "logo.png"
         )
 
-        st.markdown(
-            "<div style='height:140px'></div>",
-            unsafe_allow_html=True
+        st.image(
+            logoPath,
+            width=700
         )
-
-        _, centerCol, _ = st.columns([1, 8, 1])
-
-        with centerCol:
-
-            st.image(
-                logoPath,
-                width=700
-            )
 
 
     with rightCol:
