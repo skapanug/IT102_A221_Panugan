@@ -9,15 +9,16 @@ def loginScreen():
 
     with leftCol:
 
-        logoPath = os.path.join(
-            os.path.dirname(__file__),
-            "assets",
-            "logo.png"
-        )
-
-        st.image(
-            logoPath,
-            width=700
+        st.markdown(
+            """
+            <div style="
+                background-color:white;
+                height:100vh;
+                border-radius:0px;
+            ">
+            </div>
+            """,
+            unsafe_allow_html=True
         )
     with rightCol:
 
@@ -63,15 +64,16 @@ def signupScreen():
 
     with leftCol:
 
-        logoPath = os.path.join(
-            os.path.dirname(__file__),
-            "assets",
-            "logo.png"
-        )
-
-        st.image(
-            logoPath,
-            width=700
+        st.markdown(
+            """
+            <div style="
+                background-color:white;
+                height:100vh;
+                border-radius:0px;
+            ">
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
 
