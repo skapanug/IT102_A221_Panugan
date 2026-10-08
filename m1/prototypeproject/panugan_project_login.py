@@ -16,14 +16,18 @@ def loginScreen():
         )
 
         st.markdown(
-            "<div style='height:120px'></div>",
+            "<div style='height:220px'></div>",
             unsafe_allow_html=True
         )
 
-        st.image(
-            logoPath,
-            width=500
-        )
+        _, centerCol, _ = st.columns([1, 5, 1])
+
+        with centerCol:
+
+            st.image(
+                logoPath,
+                width=450
+            )
 
     with rightCol:
 
@@ -76,14 +80,18 @@ def signupScreen():
         )
 
         st.markdown(
-            "<div style='height:120px'></div>",
+            "<div style='height:220px'></div>",
             unsafe_allow_html=True
         )
 
-        st.image(
-            logoPath,
-            width=500
-        )
+        _, centerCol, _ = st.columns([1, 5, 1])
+
+        with centerCol:
+
+            st.image(
+                logoPath,
+                width=450
+            )
 
     with rightCol:
 
