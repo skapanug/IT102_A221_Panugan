@@ -7,31 +7,18 @@ def loginScreen():
 
     with leftCol:
 
-        st.markdown(
-            """
-            <div style="
-                background-color:white;
-                height:100vh;
-                border-radius:0px;
-            ">
-            </div>
-            """,
-            unsafe_allow_html=True
+       
+
+        logoPath = os.path.join(
+            os.path.dirname(__file__),
+            "assets",
+            "logo.png"
         )
 
-        leftSpace, centerCol, rightSpace = st.columns([1, 8, 1])
-
-        with centerCol:
-
-            st.markdown(
-                "<div style='height:150px'></div>",
-                unsafe_allow_html=True
-            )
-
-            st.image(
-                "logo.png",
-                width=800
-            )
+        st.image(
+            logoPath,
+            width=800
+        )
 
     with rightCol:
 
@@ -89,33 +76,17 @@ def signupScreen():
     leftCol, rightCol = st.columns([3, 2])
 
 
-
     with leftCol:
 
 
-        st.markdown(
-            """
-            <div style="
-                background-color:white;
-                height:100vh;
-                border-radius:0px;
-            ">
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        leftSpace, centerCol, rightSpace = st.columns([1, 8, 1])
-
-    with centerCol:
-
-        st.markdown(
-            "<div style='height:150px'></div>",
-            unsafe_allow_html=True
+        logoPath = os.path.join(
+            os.path.dirname(__file__),
+            "assets",
+            "logo.png"
         )
 
         st.image(
-            "logo.png",
+            logoPath,
             width=800
         )
 
