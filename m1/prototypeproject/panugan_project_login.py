@@ -74,22 +74,18 @@ def signupScreen():
 
     leftCol, rightCol = st.columns([3, 2])
 
+    import os
+
     with leftCol:
 
-
-        st.markdown(
-            "<div style='height:180px'></div>",
-            unsafe_allow_html=True
+        st.write(
+            os.path.exists("assets/logo.png")
         )
 
-        leftSpacer, centerCol, rightSpacer = st.columns([1, 8, 1])
-
-        with centerCol:
-
-            st.image(
-                "assets/logo.png",
-                width=850
-            )
+        st.image(
+            "assets/logo.png",
+            width=600
+        )
 
     with rightCol:
 
