@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 
 
 def loginScreen():
@@ -8,31 +7,19 @@ def loginScreen():
 
     with leftCol:
 
-       
-
-        logoPath = os.path.join(
-            os.path.dirname(__file__),
-            "assets",
-            "logo.png"
-        )
-
-        st.image(
-            logoPath,
-            width=800
-        )
-
-    with rightCol:
-
         st.markdown(
             """
             <div style="
-                background-color:#8d1021;
-                padding:30px;
-                border-radius:10px;
+                background-color:white;
+                height:100vh;
+                border-radius:0px;
             ">
+            </div>
             """,
             unsafe_allow_html=True
         )
+
+    with rightCol:
 
         st.subheader("Login")
 
@@ -63,8 +50,6 @@ def loginScreen():
 
             st.rerun()
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
     return (
         username,
         password,
@@ -76,33 +61,21 @@ def signupScreen():
 
     leftCol, rightCol = st.columns([3, 2])
 
-
     with leftCol:
-
-
-        logoPath = os.path.join(
-            os.path.dirname(__file__),
-            "assets",
-            "logo.png"
-        )
-
-        st.image(
-            logoPath,
-            width=800
-        )
-
-    with rightCol:
 
         st.markdown(
             """
             <div style="
-                background-color:#8d1021;
-                padding:30px;
-                border-radius:10px;
+                background-color:white;
+                height:100vh;
+                border-radius:0px;
             ">
+            </div>
             """,
             unsafe_allow_html=True
         )
+
+    with rightCol:
 
         st.subheader("Create Account")
 
@@ -127,6 +100,7 @@ def signupScreen():
             "Create Account",
             use_container_width=True
         )
+
         if st.button(
             "Back to Login",
             use_container_width=True
@@ -135,8 +109,6 @@ def signupScreen():
             st.session_state.auth_page = "Login"
 
             st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     return (
         username,
