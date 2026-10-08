@@ -40,6 +40,34 @@ if "user" not in st.session_state:
 
 st.markdown("""
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
+
+body,
+p,
+label,
+span,
+div,
+button,
+h1,
+h2,
+h3,
+[data-testid="stSidebar"],
+.stButton > button,
+.stSelectbox,
+.stTextInput,
+.stDateInput,
+.stRadio {
+    font-family: 'Playfair Display', serif !important;
+}
+
+[data-testid="stDataFrame"],
+[data-testid="stDataFrame"] *,
+.js-plotly-plot,
+.js-plotly-plot * {
+    font-family: Arial, sans-serif !important;
+}
+
 .stApp {
     background-color: #1a0d0d;
     color: white;
@@ -52,8 +80,6 @@ section[data-testid="stSidebar"] {
 h1, h2, h3 {
     color: #ff8c00;
 }
-
-
 
 </style>
 """, unsafe_allow_html=True)
