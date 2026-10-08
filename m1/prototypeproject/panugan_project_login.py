@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+
 
 
 def loginScreen():
@@ -7,16 +9,20 @@ def loginScreen():
 
     with leftCol:
 
+        logoPath = os.path.join(
+            os.path.dirname(__file__),
+            "assets",
+            "logo.png"
+        )
+
         st.markdown(
-            """
-            <div style="
-                background-color:white;
-                height:100vh;
-                border-radius:0px;
-            ">
-            </div>
-            """,
+            "<div style='height:120px'></div>",
             unsafe_allow_html=True
+        )
+
+        st.image(
+            logoPath,
+            width=500
         )
 
     with rightCol:
@@ -63,16 +69,20 @@ def signupScreen():
 
     with leftCol:
 
+        logoPath = os.path.join(
+            os.path.dirname(__file__),
+            "assets",
+            "logo.png"
+        )
+
         st.markdown(
-            """
-            <div style="
-                background-color:white;
-                height:100vh;
-                border-radius:0px;
-            ">
-            </div>
-            """,
+            "<div style='height:120px'></div>",
             unsafe_allow_html=True
+        )
+
+        st.image(
+            logoPath,
+            width=500
         )
 
     with rightCol:
