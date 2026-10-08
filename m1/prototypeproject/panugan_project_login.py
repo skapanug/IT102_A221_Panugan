@@ -19,6 +19,20 @@ def loginScreen():
             unsafe_allow_html=True
         )
 
+        leftSpace, centerCol, rightSpace = st.columns([1, 8, 1])
+
+        with centerCol:
+
+            st.markdown(
+                "<div style='height:150px'></div>",
+                unsafe_allow_html=True
+            )
+
+            st.image(
+                "logo.png",
+                width=800
+            )
+
     with rightCol:
 
         st.markdown(
@@ -74,17 +88,35 @@ def signupScreen():
 
     leftCol, rightCol = st.columns([3, 2])
 
-    import os
+
 
     with leftCol:
 
-        st.write(
-            os.path.exists("assets/logo.png")
+
+        st.markdown(
+            """
+            <div style="
+                background-color:white;
+                height:100vh;
+                border-radius:0px;
+            ">
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        leftSpace, centerCol, rightSpace = st.columns([1, 8, 1])
+
+    with centerCol:
+
+        st.markdown(
+            "<div style='height:150px'></div>",
+            unsafe_allow_html=True
         )
 
         st.image(
-            "assets/logo.png",
-            width=600
+            "logo.png",
+            width=800
         )
 
     with rightCol:
