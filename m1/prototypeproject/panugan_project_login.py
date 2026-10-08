@@ -13,7 +13,7 @@ def loginScreen():
             """
             <div style="
                 background-color:white;
-                height:90vh;
+                height:100vh;
                 border-radius:0px;
             ">
             </div>
@@ -68,7 +68,7 @@ def signupScreen():
             """
             <div style="
                 background-color:white;
-                height:90vh;
+                height:100vh;
                 border-radius:0px;
             ">
             </div>
