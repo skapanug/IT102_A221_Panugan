@@ -76,17 +76,26 @@ def signupScreen():
 
     with leftCol:
 
-        st.markdown(
-            """
-            <div style="
-                background-color:white;
-                height:100vh;
-                border-radius:0px;
-            ">
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        with leftCol:
+
+            st.markdown(
+                """
+                <div style="
+                    background-color:white;
+                    height:100vh;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                ">
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            st.image(
+                "assets/logo.png",
+                width=800
+            )
 
     with rightCol:
 
