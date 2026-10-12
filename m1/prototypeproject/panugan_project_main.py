@@ -16,7 +16,10 @@ from reportlab.lib.styles import (
 )
 
 
-from panugan_project_product import Tool
+from panugan_project_product import (
+    Tool,
+    AverageChangePredictor
+)
 from panugan_project_data import FileManager
 from panugan_project_login import (
     loginScreen,
@@ -428,27 +431,11 @@ elif button == "Sales Performance":
 
                 amounts = chartData["Amount"].tolist()
 
-                if len(amounts) >= 2:
+                predictor = AverageChangePredictor()
 
-                    changes = []
-
-                    for i in range(1, len(amounts)):
-
-                        changes.append(
-                            amounts[i] - amounts[i - 1]
-                        )
-
-                    averageChange = (
-                        sum(changes) / len(changes)
-                    )
-
-                    predictedAmount = (
-                        amounts[-1] + averageChange
-                    )
-
-                else:
-
-                    predictedAmount = amounts[-1]
+                predictedAmount = predictor.predict(
+                    amounts
+                )
 
 
                 lastDate = chartData["Date"].iloc[-1]
