@@ -25,6 +25,9 @@ from panugan_project_login import (
     loginScreen,
     signupScreen
 )
+from auth_controller import AuthController
+from sales_controller import SalesController
+from prediction_controller import PredictionController
 
 
 st.set_page_config(
@@ -32,6 +35,13 @@ st.set_page_config(
 )
 
 fileManager = FileManager()
+authController = AuthController(
+    fileManager
+)
+
+predictionController = PredictionController(
+    AverageChangePredictor()
+)
 
 if "logged_in" not in st.session_state:
 
