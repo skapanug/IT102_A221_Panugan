@@ -226,8 +226,12 @@ if button == "Sales Records":
     if productName:
 
         product = Tool(
-            productName,
-            fileManager
+        productName,
+        fileManager
+        )
+
+        salesController = SalesController(
+            product
         )
 
         st.subheader(f"{productName} Records")
@@ -307,7 +311,7 @@ if button == "Sales Records":
 
 
                 if st.button("Update"):
-                    product.updateSale(selectedDate,newAmount)
+                    salesController.updateSale(selectedDate,newAmount)
                     st.session_state["message"] = (f"{productName} record updated.")
                     st.rerun()
 
@@ -325,7 +329,7 @@ if button == "Sales Records":
                 selectedDate = st.selectbox("Select Record To Delete",filteredData["Date"].tolist(),key="delete_record")
 
                 if st.button("Delete"):
-                    product.deleteSale(selectedDate)
+                    salesController.deleteSale(selectedDate)
                     st.session_state["message"] = (f"{productName} record deleted.")
                     st.rerun()
 
