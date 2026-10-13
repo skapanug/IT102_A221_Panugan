@@ -435,7 +435,6 @@ elif button == "Sales Performance":
 
                 amounts = chartData["Amount"].tolist()
 
-                predictor = AverageChangePredictor()
 
                 predictedAmount = predictionController.generatePrediction(
                     amounts
