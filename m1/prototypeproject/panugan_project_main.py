@@ -95,7 +95,7 @@ if not st.session_state.logged_in:
 
         if loginButton:
 
-            if fileManager.loginUser(
+            if authController.login(
                 username,
                 password
             ):
@@ -131,7 +131,7 @@ if not st.session_state.logged_in:
 
             else:
 
-                success = fileManager.registerUser(
+                success = authController.register(
                     username,
                     password
                 )
@@ -286,7 +286,7 @@ if button == "Sales Records":
             amount = st.number_input("Amount Sold",min_value=0,key="add_amount")
 
             if st.button("Add"):
-                product.addSale(date.strftime("%Y-%m-%d"),amount)
+                salesController.addSale(date.strftime("%Y-%m-%d"),amount)
                 st.session_state["message"] = (f"{productName} sale added.")
                 st.rerun()
 
@@ -433,7 +433,7 @@ elif button == "Sales Performance":
 
                 predictor = AverageChangePredictor()
 
-                predictedAmount = predictor.predict(
+                predictedAmount = predictionController.generatePrediction(
                     amounts
                 )
 
