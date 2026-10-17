@@ -95,15 +95,15 @@ h1, h2, h3 {
     -webkit-text-fill-color: #8d1021 !important;
 }
 
-/* DATE INPUT */
+/* Date Input */
 
 [data-testid="stDateInput"] > div > div {
-    background-color: #F7E8E8 !important;
+    background-color: #FF6F61 !important;
 }
 
-[data-testid="stDateInput"] input[type="date"] {
-    color: #8d1021 !important;
-    -webkit-text-fill-color: #8d1021 !important;
+[data-testid="stDateInput"] input {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
 }
 
 /* NUMBER INPUT */
