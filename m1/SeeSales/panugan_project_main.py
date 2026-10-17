@@ -124,6 +124,39 @@ div[data-baseweb="select"] > div {
 [data-testid="stNumberInput"] input {
     color: #8d1021 !important;
 }
+/* Product + Update/Delete Selectboxes */
+
+div[data-baseweb="select"] > div {
+    background-color: #F7E8E8 !important;
+}
+
+div[data-baseweb="select"] span {
+    color: #8d1021 !important;
+}
+
+div[data-baseweb="select"] svg {
+    color: #8d1021 !important;
+}
+
+/* Date Inputs */
+
+[data-testid="stDateInput"] input {
+    color: #8d1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
+}
+
+/* Date Input Container */
+
+[data-testid="stDateInput"] > div > div {
+    background-color: #F7E8E8 !important;
+}
+
+/* Number Inputs */
+
+[data-testid="stNumberInput"] input {
+    color: #8d1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
