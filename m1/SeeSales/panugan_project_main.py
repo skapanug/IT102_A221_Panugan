@@ -84,25 +84,37 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* Fair Pink Inputs */
+/* Product Dropdown */
 
 div[data-baseweb="select"] > div {
     background-color: #F7E8E8 !important;
     color: #8d1021 !important;
 }
 
-[data-testid="stTextInput"] input {
-    background-color: #F7E8E8 !important;
-    color: #8d1021 !important;
-}
+/* Date Input */
 
 [data-testid="stDateInput"] input {
     background-color: #F7E8E8 !important;
     color: #8d1021 !important;
 }
 
+/* Number Input */
+
 [data-testid="stNumberInput"] input {
     background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
+
+/* Text Input */
+
+[data-testid="stTextInput"] input {
+    background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
+
+/* Selectbox Text */
+
+div[data-baseweb="select"] * {
     color: #8d1021 !important;
 }
 </style>
