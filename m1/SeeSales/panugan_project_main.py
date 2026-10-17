@@ -84,17 +84,18 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* Selectbox */
+/* SELECTBOX */
 
 [data-testid="stSelectbox"] > div > div {
     background-color: #F7E8E8 !important;
 }
 
-[data-testid="stSelectbox"] div {
+[data-testid="stSelectbox"] input {
     color: #8d1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
 }
 
-/* Date Input */
+/* DATE INPUT */
 
 [data-testid="stDateInput"] > div > div {
     background-color: #F7E8E8 !important;
@@ -105,7 +106,7 @@ h1, h2, h3 {
     -webkit-text-fill-color: #8d1021 !important;
 }
 
-/* Number Input */
+/* NUMBER INPUT */
 
 [data-testid="stNumberInput"] > div > div {
     background-color: #F7E8E8 !important;
