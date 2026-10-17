@@ -116,12 +116,7 @@ h1, h2, h3 {
     color: #8d1021 !important;
     -webkit-text-fill-color: #8d1021 !important;
 }
-[data-testid="stDateInput"] div,
-[data-testid="stDateInput"] input,
-[data-testid="stDateInput"] span {
-    color: #8d1021 !important;
-    -webkit-text-fill-color: #8d1021 !important;
-}
+
 </style>
 """, unsafe_allow_html=True)
 
