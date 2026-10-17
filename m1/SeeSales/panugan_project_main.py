@@ -84,6 +84,27 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
+/* Fair Pink Inputs */
+
+div[data-baseweb="select"] > div {
+    background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
+
+[data-testid="stTextInput"] input {
+    background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
+
+[data-testid="stDateInput"] input {
+    background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
+
+[data-testid="stNumberInput"] input {
+    background-color: #F7E8E8 !important;
+    color: #8d1021 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
