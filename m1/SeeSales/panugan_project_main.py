@@ -84,7 +84,11 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* Product Dropdown */
+/* Selectbox */
+
+div[data-baseweb="select"] {
+    background-color: #F7E8E8 !important;
+}
 
 div[data-baseweb="select"] > div {
     background-color: #F7E8E8 !important;
@@ -93,28 +97,31 @@ div[data-baseweb="select"] > div {
 
 /* Date Input */
 
-[data-testid="stDateInput"] input {
+[data-testid="stDateInput"] > div > div {
     background-color: #F7E8E8 !important;
-    color: #8d1021 !important;
 }
 
-/* Number Input */
-
-[data-testid="stNumberInput"] input {
-    background-color: #F7E8E8 !important;
+[data-testid="stDateInput"] input {
     color: #8d1021 !important;
 }
 
 /* Text Input */
 
-[data-testid="stTextInput"] input {
+[data-testid="stTextInput"] > div > div {
     background-color: #F7E8E8 !important;
+}
+
+[data-testid="stTextInput"] input {
     color: #8d1021 !important;
 }
 
-/* Selectbox Text */
+/* Number Input */
 
-div[data-baseweb="select"] * {
+[data-testid="stNumberInput"] > div > div {
+    background-color: #F7E8E8 !important;
+}
+
+[data-testid="stNumberInput"] input {
     color: #8d1021 !important;
 }
 </style>
