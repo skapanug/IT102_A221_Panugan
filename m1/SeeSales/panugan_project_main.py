@@ -84,78 +84,40 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* Selectbox */
+/* ALL SELECTBOXES */
 
-div[data-baseweb="select"] {
+[data-testid="stSelectbox"] > div > div {
     background-color: #F7E8E8 !important;
 }
 
-div[data-baseweb="select"] > div {
-    background-color: #F7E8E8 !important;
+[data-testid="stSelectbox"] div {
     color: #8d1021 !important;
 }
 
-/* Date Input */
+[data-testid="stSelectbox"] svg {
+    color: #8d1021 !important;
+}
+
+/* DATE INPUT */
+
+[data-testid="stDateInput"] input {
+    color: #8d1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
+}
 
 [data-testid="stDateInput"] > div > div {
     background-color: #F7E8E8 !important;
 }
 
-[data-testid="stDateInput"] input {
+/* NUMBER INPUT */
+
+[data-testid="stNumberInput"] input {
     color: #8d1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
 }
-
-/* Text Input */
-
-[data-testid="stTextInput"] > div > div {
-    background-color: #F7E8E8 !important;
-}
-
-[data-testid="stTextInput"] input {
-    color: #8d1021 !important;
-}
-
-/* Number Input */
 
 [data-testid="stNumberInput"] > div > div {
     background-color: #F7E8E8 !important;
-}
-
-[data-testid="stNumberInput"] input {
-    color: #8d1021 !important;
-}
-/* Product + Update/Delete Selectboxes */
-
-div[data-baseweb="select"] > div {
-    background-color: #F7E8E8 !important;
-}
-
-div[data-baseweb="select"] span {
-    color: #8d1021 !important;
-}
-
-div[data-baseweb="select"] svg {
-    color: #8d1021 !important;
-}
-
-/* Date Inputs */
-
-[data-testid="stDateInput"] input {
-    color: #8d1021 !important;
-    -webkit-text-fill-color: #8d1021 !important;
-}
-
-/* Date Input Container */
-
-[data-testid="stDateInput"] > div > div {
-    background-color: #F7E8E8 !important;
-}
-
-/* Number Inputs */
-
-[data-testid="stNumberInput"] input {
-    color: #8d1021 !important;
-    -webkit-text-fill-color: #8d1021 !important;
 }
 </style>
 """, unsafe_allow_html=True)
