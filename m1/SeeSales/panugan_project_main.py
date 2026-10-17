@@ -101,11 +101,9 @@ h1, h2, h3 {
     background-color: #F7E8E8 !important;
 }
 
-[data-testid="stDateInput"] input {
+[data-testid="stDateInput"] input[type="date"] {
     color: #8d1021 !important;
     -webkit-text-fill-color: #8d1021 !important;
-    opacity: 1 !important;
-    font-weight: 500 !important;
 }
 
 /* NUMBER INPUT */
