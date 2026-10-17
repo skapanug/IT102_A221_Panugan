@@ -326,7 +326,7 @@ if button == "Sales Records":
 
 
  
-        if option == "Add Sale":
+        if option == "❇️ Add Sale":
             st.subheader("Add Sale")
             date = st.date_input("Date",key="add_date")
 
@@ -341,7 +341,7 @@ if button == "Sales Records":
 
 
     
-        elif option == "Update Sale":
+        elif option == "🔄 Update Sale":
             st.subheader("Update Sale")
             if not filteredData.empty:
                 selectedDate = st.selectbox("Select Record",filteredData["Date"].tolist(),key="update_record")
@@ -366,7 +366,7 @@ if button == "Sales Records":
 
 
 
-        elif option == "Delete Sale":
+        elif option == "⛔ Delete Sale":
             st.subheader("Delete Sale")
             if not filteredData.empty:
                 selectedDate = st.selectbox("Select Record To Delete",filteredData["Date"].tolist(),key="delete_record")
