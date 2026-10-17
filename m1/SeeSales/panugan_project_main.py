@@ -312,9 +312,9 @@ if button == "Sales Records":
         option = st.radio(
             "Select Action",
             [
-                "Add Sale",
-                "Update Sale",
-                "Delete Sale"
+                "❇️ Add Sale",
+                "🔄 Update Sale",
+                "⛔ Delete Sale"
             ],
             key="sales_action"
         )
