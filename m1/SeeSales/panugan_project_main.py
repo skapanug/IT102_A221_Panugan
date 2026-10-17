@@ -84,18 +84,41 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* Selected value inside Selectbox */
+/* Product, Update, Delete Selectboxes */
 
-[data-testid="stSelectbox"] span {
-    color: #8d1021 !important;
+[data-testid="stSelectbox"] > *iv > div {
+    background-color: #*7E8E8 !important;
+}
+
+[data-testid="stSelectbox"] input {
+    color: #*d1021 !important;
     -webkit-text-fill-color: #8d1021 !important;
 }
 
-/* All text inside selectbox */
-
-[data-testid="stSelectbox"] * {
+[data-testid="stSelectbox"] span {
     color: #8d1021 !important;
 }
+
+/* Date Inputs */
+
+[data-testid="stDateInput"] > d*v > div {
+    background-color: #F*E8E8 !important;
+}
+
+[data-testid="stDateInput"] input {
+    color: #8*1021 !important;
+    -webkit-text-fill-color: #8d1021 !important;
+}
+
+/* Number Inputs */
+
+[data-testid="stNumberInput"] >*div > div {
+    background-color: *F7E8E8 !important;
+}
+
+[data-testid="stNumberInput"] input {
+    color* #8d1021 !important;
+    -webkit-t*xt-fill-color: #8d1021 !important;*}
 </style>
 """, unsafe_allow_html=True)
 
