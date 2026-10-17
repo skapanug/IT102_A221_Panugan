@@ -248,8 +248,6 @@ if button == "Sales Records":
 
             productList = []
 
-    st.subheader("Select Product")
-
     productChoice = st.selectbox(
         "Product",
         productList + ["➕ Create New Product"],
