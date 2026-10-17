@@ -84,40 +84,17 @@ h1, h2, h3 {
     color: #ff8c00;
 }
 
-/* ALL SELECTBOXES */
+/* Selected value inside Selectbox */
 
-[data-testid="stSelectbox"] > div > div {
-    background-color: #F7E8E8 !important;
-}
-
-[data-testid="stSelectbox"] div {
-    color: #8d1021 !important;
-}
-
-[data-testid="stSelectbox"] svg {
-    color: #8d1021 !important;
-}
-
-/* DATE INPUT */
-
-[data-testid="stDateInput"] input {
+[data-testid="stSelectbox"] span {
     color: #8d1021 !important;
     -webkit-text-fill-color: #8d1021 !important;
 }
 
-[data-testid="stDateInput"] > div > div {
-    background-color: #F7E8E8 !important;
-}
+/* All text inside selectbox */
 
-/* NUMBER INPUT */
-
-[data-testid="stNumberInput"] input {
+[data-testid="stSelectbox"] * {
     color: #8d1021 !important;
-    -webkit-text-fill-color: #8d1021 !important;
-}
-
-[data-testid="stNumberInput"] > div > div {
-    background-color: #F7E8E8 !important;
 }
 </style>
 """, unsafe_allow_html=True)
