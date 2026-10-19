@@ -116,6 +116,30 @@ h1, h2, h3 {
     color: #8d1021 !important;
     -webkit-text-fill-color: #8d1021 !important;
 }
+/* Keep labels white */
+
+label,
+.stMarkdown,
+.stText,
+p {
+    color: white !important;
+}
+
+/* Streamlit form labels */
+
+[data-testid="stWidgetLabel"] {
+    color: white !important;
+}
+
+[data-testid="stWidgetLabel"] p {
+    color: white !important;
+}
+
+/* Radio labels */
+
+[data-testid="stRadio"] label {
+    color: white !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
