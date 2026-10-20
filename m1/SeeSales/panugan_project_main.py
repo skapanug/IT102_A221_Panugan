@@ -352,7 +352,7 @@ if button == "Sales Records":
             st.subheader("Add Sale")
             date = st.date_input("Date",key="add_date")
 
-            amount = st.number_input("Amount Made",min_value=0,key="add_amount")
+            amount = st.number_input("Amount Made in PHP",min_value=0,key="add_amount")
 
             if st.button("Add"):
                 salesController.addSale(date.strftime("%Y-%m-%d"),amount)
